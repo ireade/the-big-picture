@@ -1,0 +1,92 @@
+<main>
+<header class="page-header">
+	<div class="container">
+		<h1>Task</h1>
+
+		<nav class="floating-nav-buttons">
+			<ul>
+				<li>
+					<a ng-click="showModal('updateTaskModal')"> 
+						<i class="fa fa-pencil"></i> 
+					</a>
+				</li>
+
+				<li>
+					<a ng-click="updateTaskStatus(task)"> 
+						<i class="fa fa-check"></i> 
+					</a>
+				</li>
+			</ul>
+		</nav>
+	</div>
+</header>
+
+<div class="container">
+
+	<div class="item-complete-box" ng-if="task.status === 'complete'">Task Completed!</div>
+
+	<div class="site-box no-ul">
+
+		<span class="task__title">{{task.title}}</span><br>
+		<span class="task__deadline">by {{task.deadline | momentDate }}</span>
+		
+		<br>
+
+		<a href="#/goals/{{task.goal}}">
+			<span class="task__deadline">for {{ goalTitle }}</span>
+		</a>
+
+
+	</div>
+
+	
+
+
+</div>
+</main>
+
+
+
+
+
+<div class="modal-container">
+	<section class="modal updateTaskModal">
+
+		<h2>Update Task</h2>
+
+		<form novalidate ng-submit="updateTask(task)">
+		
+			<div class="input-group">
+				<label for="">What's the task?</label>
+				<input type="text" ng-model="task.title">
+			</div>
+
+			<div class="input-group">
+				<label for="">What goal is this for?</label>
+				
+				<select name="goalsList" id="goalsList" ng-model="goalsList" ng-options="option.name for option in goalsListOptions track by option.id"></select>
+			</div>
+
+			<div class="input-group">
+				<label for="">When's the deadline?</label>
+				<input type="text" ng-model="task.deadline" data-field="datetime">
+			</div>
+
+			<div class="input-group">
+				<label for="">When do you want to be reminded about this?</label>
+				<input type="text" ng-model="task.reminder" data-field="datetime">
+			</div>
+
+			<div class="input-group--submit">
+			<input type="submit" value="Update Task">
+			</div>
+
+		</form>
+
+		<a ng-click="hideModal()">Close</a>
+		
+	</section>
+
+</div>
+
+<div class="dateTimePickerBox"></div>

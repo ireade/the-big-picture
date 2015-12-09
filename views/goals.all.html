@@ -1,0 +1,103 @@
+<main>
+<header class="page-header">
+	<div class="container">
+		<h1>All Goals</h1>
+
+		<nav class="floating-nav-buttons">
+			<ul>
+				<li>
+					<a ng-click="showModal('addGoalModal')"> 
+						<i class="fa fa-plus"></i> 
+					</a>
+				</li>
+			</ul>
+		</nav>
+	</div>
+</header>
+
+<div class="container">
+
+	<ul class="goal-list">
+		<li ng-repeat="goal in goals | orderBy: 'deadline' | filter: { status : 'active' } " class="site-box goal-list-item no-style">
+
+			<a href="#/goals/{{goal.$id}}">
+			<span class="goal__title">{{goal.title}}</span><br>
+			<span class="goal__deadline">by {{goal.deadline | momentDate }}</span>
+			</a>
+			
+			<div class="goal-progress-bar" ng-controller="minGoalTasksCtrl" ng-init="getCompletePercentage(goal.$id)">
+				<div class="goal-progress" style="width: {{ completePercentage }}%"></div>
+			</div>
+		</li>
+	</ul>
+
+
+<section>
+	<h2>Completed</h2>
+	
+	<ul>
+		<li ng-repeat="goal in goals | filter: { status : 'complete' } " class="site-box goal-list-item no-style goalListItemCompleted">
+
+			<a href="#/goals/{{goal.$id}}">
+			<span class="goal__title">{{goal.title}}</span><br>
+			<span class="goal__deadline">by {{goal.deadline | momentDate }}</span>
+			</a>
+			
+			<div class="goal-progress-bar">
+				<div class="goal-progress" style="width: 100%"></div>
+			</div>
+
+		</li>
+	</ul>
+</section>
+	
+</div>
+
+
+</main>
+
+
+
+
+
+
+
+
+
+
+<!-- Add Goal Modal -->
+<div class="modal-container">
+	<section class="modal addGoalModal">
+
+		<h2>Add Goal</h2>
+
+		<form novalidate ng-submit="addGoal(goal)">
+		
+			<div class="input-group">
+				<label for="">What's your goal?</label>
+				<input type="text" ng-model="goal.title" required>
+			</div>
+
+			<div class="input-group">
+				<label for="">Why do you want to do this?</label>
+				<textarea name="" id="" cols="30" rows="5" ng-model="goal.description"></textarea>
+			</div>
+
+			<div class="input-group">
+				<label for="">When's the deadline?</label>
+				<input type="text" ng-model="goal.deadline" data-field="datetime" required>
+			</div>
+
+			<div class="input-group--submit">
+			<input type="submit" value="Create Goal">
+			</div>
+
+		</form>
+
+		<a ng-click="hideModal()">Close</a>
+		
+	</section>
+
+</div>
+
+<div class="dateTimePickerBox"></div>

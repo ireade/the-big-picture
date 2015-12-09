@@ -1,0 +1,878 @@
+@import url(https://fonts.googleapis.com/css?family=Source+Sans+Pro:400,300,300italic,400italic,700);
+/* CSS Reset Based on -
+ *    Eric Meyer's Reset CSS v2.0 (http://cssreset.com)
+ *    Paul Irish's Box Sizing Reset (http://www.paulirish.com/2012/box-sizing-border-box-ftw/)
+ *    CSS Mojo's clearfix (http://cssmojo.com/latest_new_clearfix_so_far/)
+ */
+html, body, div, span, applet, object, iframe, h1, h2, h3, h4, h5, h6, p, blockquote, pre, a, abbr, acronym, address, big, cite, code, del, dfn, em, img, ins, kbd, q, s, samp, small, strike, strong, sub, sup, tt, var, b, u, i, center, dl, dt, dd, ol, ul, li, fieldset, form, label, legend, table, caption, tbody, tfoot, thead, tr, th, td, article, aside, canvas, details, embed, figure, figcaption, footer, header, hgroup, menu, nav, output, ruby, section, summary, time, mark, audio, video {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  font: inherit;
+  font-size: 100%;
+  vertical-align: baseline; }
+
+article, aside, details, figcaption, figure, footer, header, hgroup, menu, nav, section {
+  display: block; }
+
+ul {
+  list-style: none; }
+
+blockquote, q {
+  quotes: none; }
+
+blockquote:before, blockquote:after, q:before, q:after {
+  content: '';
+  content: none; }
+
+table {
+  border-collapse: collapse;
+  border-spacing: 0; }
+
+/* Box sizing */
+html {
+  box-sizing: border-box; }
+
+*, *:before, *:after {
+  box-sizing: inherit; }
+
+/* Clearfix */
+.cf:after {
+  content: "";
+  display: table;
+  clear: both; }
+
+/* -------------------------
+
+	  Vars and Mixins
+
+------------------------- */
+/* -------------------------
+
+	  Spacing
+
+------------------------- */
+/* -------------------------
+
+		Type
+
+------------------------- */
+html {
+  font-size: 62.5%; }
+
+body {
+  font-family: 'Source Sans Pro', sans-serif;
+  font-weight: 500;
+  line-height: 1.8;
+  font-size: 1.4rem; }
+
+h1 {
+  font-size: 3.6rem;
+  font-weight: 300; }
+  @media screen and (max-width: 600px) {
+    h1 {
+      font-size: 2.6rem; } }
+  h1 .fa-question-circle {
+    font-size: 1.4rem; }
+
+.dashboard-quote blockquote {
+  font-size: 3rem;
+  font-weight: 300; }
+.dashboard-quote cite {
+  font-size: 2rem;
+  font-style: italic; }
+
+h2 {
+  font-size: 2.8rem;
+  margin-bottom: 2rem;
+  font-weight: 300; }
+  @media screen and (max-width: 600px) {
+    h2 {
+      font-size: 2rem; } }
+
+h3 {
+  font-size: 1.8rem;
+  font-weight: 300;
+  margin-bottom: 1rem; }
+
+a, .a {
+  color: inherit;
+  text-decoration: underline;
+  font-weight: 700;
+  cursor: pointer; }
+
+a.no-ul, .no-ul a {
+  text-decoration: none; }
+
+a.no-style, .no-style a {
+  text-decoration: none;
+  font-weight: 500; }
+
+p {
+  margin-bottom: 1.5rem; }
+
+em {
+  font-style: italic; }
+
+.goal__title, .task__title {
+  font-weight: 700;
+  font-size: 1.6rem; }
+
+/* -----------------------------
+
+        	 Z-Index
+        	 
+------------------------------- */
+.alert-message-container, .loading-animation-container {
+  z-index: 100; }
+
+.site-aside, .nav-toggle-close {
+  z-index: 50; }
+
+/* -------------------------
+
+	  Header
+
+------------------------- */
+.page-header {
+  margin-bottom: 50px;
+  background-color: cornflowerblue;
+  color: #fff;
+  box-shadow: 1px 5px 10px #c8c8c8; }
+  .page-header h1 {
+    display: block;
+    padding: 30px 0;
+    text-align: center; }
+
+.primary-nav {
+  height: 35px;
+  line-height: 35px;
+  background-color: #fff;
+  text-align: center; }
+  .primary-nav li {
+    display: inline-block; }
+  .primary-nav a {
+    display: block;
+    height: 100%;
+    width: 100%;
+    padding: 0 10px; }
+
+.secondary-nav li {
+  display: inline-block;
+  width: auto; }
+.secondary-nav a, .secondary-nav label {
+  display: block;
+  height: 100%;
+  width: 100%;
+  padding: 0 10px 10px; }
+.secondary-nav li:not(.active) {
+  border-bottom: 3px solid cornflowerblue; }
+.secondary-nav li.active, .secondary-nav li:hover {
+  border-bottom: 3px solid #fff; }
+
+.floating-nav-buttons {
+  height: 50px;
+  position: absolute;
+  bottom: -25px;
+  right: 15px; }
+  .floating-nav-buttons li {
+    display: inline-block;
+    border-radius: 50%;
+    background-color: #fff;
+    height: 50px;
+    width: 50px;
+    line-height: 50px;
+    text-align: center;
+    margin-left: 15px; }
+    .floating-nav-buttons li i {
+      color: #000;
+      font-size: 2rem;
+      line-height: 50px; }
+
+.inline-button-right {
+  display: inline-block;
+  border-radius: 50%;
+  background-color: #fff;
+  height: 40px;
+  width: 40px;
+  float: right;
+  position: absolute;
+  right: 0;
+  top: 0;
+  text-align: center; }
+  .inline-button-right i {
+    color: #000;
+    font-size: 2rem;
+    line-height: 40px; }
+
+/* -----------------------------
+
+             Main
+             
+------------------------------- */
+.site-section {
+  margin-bottom: 40px; }
+
+.site-main {
+  padding-left: 300px;
+  width: 100%;
+  height: 100%;
+  padding: 0 30px 20px 230px; }
+  @media screen and (max-width: 900px) {
+    .site-main {
+      padding-left: 30px; } }
+  @media screen and (max-width: 600px) {
+    .site-main {
+      padding: 0 10px 10px 10px; } }
+
+section {
+  position: relative; }
+
+/* -------------------------
+
+	  Layout
+
+------------------------- */
+html, body {
+  min-height: 100%;
+  position: relative;
+  background-color: whitesmoke; }
+
+section {
+  position: relative; }
+
+.box-shadow, .floating-nav-buttons li, .inline-button-right, .site-box, .item-complete-box, input, textarea, select, option, optgroup, button, legend, fieldset, .btn_mac, .modal, .task-list-item {
+  box-shadow: 1px 1px 2px #c8c8c8; }
+
+.site-box, .item-complete-box {
+  background-color: #fff;
+  padding: 20px;
+  border: 0;
+  margin-bottom: 30px; }
+
+.container {
+  margin: 0 auto;
+  width: 100%;
+  max-width: 780px;
+  padding: 0 15px;
+  position: relative; }
+
+/* ----------------------------------------------------------------------------- 
+
+  jQuery DateTimePicker - Responsive flat design jQuery DateTime Picker plugin for Web & Mobile
+  Version 0.1.9
+  Copyright (c)2015 Curious Solutions Pvt Ltd and Neha Kadam
+  http://curioussolutions.github.io/DateTimePicker
+  https://github.com/CuriousSolutions/DateTimePicker
+
+ ----------------------------------------------------------------------------- */
+.dtpicker-overlay {
+  z-index: 2000;
+  display: none;
+  min-width: 300px;
+  background: rgba(0, 0, 0, 0.2);
+  font-size: 70%;
+  -webkit-touch-callout: none;
+  -webkit-user-select: none;
+  -khtml-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none; }
+  .dtpicker-overlay a {
+    text-decoration: none; }
+
+.dtpicker-mobile {
+  position: fixed;
+  top: 0px;
+  left: 0px;
+  width: 100%;
+  height: 100%; }
+
+.dtpicker-overlay * {
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+  -ms-box-sizing: border-box;
+  -webkit-tap-highlight-color: transparent; }
+
+.dtpicker-bg {
+  width: 100%;
+  height: 100%;
+  font-family: 'Source Sans Pro', sans-serif; }
+
+.dtpicker-cont {
+  border: 1px solid #ECF0F1; }
+
+.dtpicker-mobile .dtpicker-cont {
+  position: relative;
+  top: 50%;
+  -webkit-transform: translateY(-50%);
+  -moz-transform: translateY(-50%);
+  -ms-transform: translateY(-50%);
+  transform: translateY(-50%);
+  border: none; }
+
+.dtpicker-content {
+  margin: 0px auto;
+  padding: 1em 0em;
+  max-width: 500px;
+  background: #fff; }
+
+.dtpicker-mobile .dtpicker-content {
+  width: 97%; }
+
+.dtpicker-subcontent {
+  position: relative; }
+
+.dtpicker-header {
+  margin: 0.2em 1em; }
+
+.dtpicker-header .dtpicker-title {
+  color: #000;
+  text-align: center;
+  font-size: 1.3em; }
+
+.dtpicker-header .dtpicker-close {
+  position: absolute;
+  top: -0.7em;
+  right: 0.3em;
+  padding: 0.5em 0.5em 1em 1em;
+  color: #323232;
+  font-size: 1.5em;
+  cursor: pointer; }
+
+.dtpicker-header .dtpicker-close:hover {
+  color: #323232; }
+
+.dtpicker-header .dtpicker-value {
+  padding: 0.8em 0.2em 0.2em 0.2em;
+  color: #323232;
+  text-align: center;
+  font-size: 1.4em; }
+
+.dtpicker-components {
+  overflow: hidden;
+  margin: 1em 1em;
+  font-size: 1.4em; }
+
+.dtpicker-components * {
+  margin: 0px;
+  padding: 0px; }
+
+.dtpicker-components .dtpicker-compOutline {
+  display: inline-block;
+  float: left; }
+
+.dtpicker-comp2 {
+  width: 50%; }
+
+.dtpicker-comp3 {
+  width: 33.3%; }
+
+.dtpicker-comp5 {
+  width: 20%; }
+
+.dtpicker-comp6 {
+  width: 16.66%; }
+
+.dtpicker-components .dtpicker-comp {
+  margin: 2%;
+  text-align: center; }
+
+.dtpicker-components .dtpicker-comp > * {
+  display: block;
+  height: 30px;
+  color: #000;
+  text-align: center;
+  line-height: 30px; }
+
+.dtpicker-components .dtpicker-comp > *:hover {
+  color: #000; }
+
+.dtpicker-components .dtpicker-compButtonEnable {
+  opacity: 1; }
+
+.dtpicker-components .dtpicker-compButtonDisable {
+  opacity: 0.5; }
+
+.dtpicker-components .dtpicker-compButton {
+  background: #FFFFFF;
+  font-size: 140%;
+  cursor: pointer; }
+
+.dtpicker-components .dtpicker-compValue {
+  margin: 0.4em 0em;
+  width: 100%;
+  border: none;
+  background: #FFFFFF;
+  font-size: 100%;
+  -webkit-appearance: none; }
+
+.dtpicker-overlay .dtpicker-compValue:focus {
+  outline: none;
+  background: #F2FCFF; }
+
+.dtpicker-buttonCont {
+  overflow: hidden;
+  margin: 0.2em 1em; }
+
+.dtpicker-buttonCont .dtpicker-button {
+  display: block;
+  padding: 0.6em 0em;
+  width: 47%;
+  background: #323232;
+  color: #FFFFFF;
+  text-align: center;
+  font-size: 1.5em;
+  cursor: pointer; }
+
+.dtpicker-buttonCont .dtpicker-button:hover {
+  color: #FFFFFF; }
+
+.dtpicker-singleButton .dtpicker-button {
+  margin: 0.2em auto; }
+
+.dtpicker-twoButtons .dtpicker-buttonSet {
+  float: left; }
+
+.dtpicker-twoButtons .dtpicker-buttonClear {
+  float: right; }
+
+/* FormHack v1.1.0 (formhack.io) */
+/* Global Reset Styles ------------------ */
+input, textarea, select, option, optgroup, button, legend, fieldset {
+  box-sizing: border-box;
+  outline: none;
+  font-family: 'Source Sans Pro', sans-serif;
+  font-size: 14px;
+  color: #646464;
+  vertical-align: top;
+  display: inline-block;
+  margin: 10px 0; }
+
+datalist {
+  font-family: 'Source Sans Pro', sans-serif;
+  font-size: 14px; }
+
+label {
+  display: inline-block;
+  margin: 10px 0;
+  width: 200px;
+  vertical-align: top; }
+
+.input-group--submit, form:not(.form-centered) .input-helper {
+  margin-left: 200px;
+  width: 100%;
+  max-width: 400px;
+  text-align: right; }
+  @media screen and (max-width: 633px) {
+    .input-group--submit, form:not(.form-centered) .input-helper {
+      margin-left: 0;
+      text-align: left; } }
+
+.input-field {
+  width: 100%;
+  max-width: 400px;
+  display: inline-block; }
+
+.modal form .input-group--submit, .modal form:not(.form-centered) .input-helper {
+  margin-left: 0;
+  width: 100%;
+  max-width: 100%;
+  text-align: center; }
+
+/* Input & Textarea ------------------ */
+/* Fields with standard width */
+input[type="text"], input[type="email"], input[type="password"], input[type="search"], input[type="color"], input[type="date"], input[type="datetime-local"], input[type="month"], input[type="number"], input[type="tel"], input[type="time"], input[type="url"], input[type="week"], input[list], input[type="file"], select, textarea {
+  width: 100%;
+  max-width: 400px;
+  padding: 8px;
+  background-color: #fff;
+  -webkit-border-radius: 0;
+  -moz-border-radius: 0;
+  border-radius: 0;
+  border: 0 solid #c8c8c8; }
+
+/* Fields with standard height */
+input[type="text"], input[type="email"], input[type="password"], input[type="search"], input[type="color"], input[type="date"], input[type="datetime-local"], input[type="month"], input[type="number"], input[type="tel"], input[type="time"], input[type="url"], input[type="week"], input[list] {
+  height: 40px;
+  -webkit-appearance: none; }
+
+/* Other */
+textarea {
+  -webkit-appearance: none;
+  overflow: auto; }
+
+input[type="range"] {
+  height: 40px;
+  width: 100%;
+  max-width: 400px; }
+
+input[type="file"] {
+  min-height: 40px; }
+
+input[type="search"] {
+  height: 40px;
+  -webkit-appearance: none; }
+
+input[type="search"]::-webkit-search-cancel-button, input[type="search"]::-webkit-search-decoration {
+  -webkit-appearance: none; }
+
+input[type="checkbox"], input[type="radio"] {
+  display: inline-block;
+  vertical-align: middle;
+  margin-right: 5px; }
+
+.radio-input-container {
+  display: inline-block;
+  height: 40px;
+  width: auto;
+  margin-right: 10px;
+  position: relative;
+  -webkit-border-radius: 0;
+  -moz-border-radius: 0;
+  border-radius: 0;
+  border: 0 solid #c8c8c8; }
+  .radio-input-container input[type="radio"] {
+    position: absolute;
+    top: 2px;
+    left: 10px; }
+  .radio-input-container input[type="radio"]:checked + span.radio-label {
+    border: 2px solid #87d37c; }
+
+span.radio-label {
+  display: block;
+  width: 100%;
+  height: 100%;
+  padding: 5px 10px 5px 35px;
+  background-color: #fff;
+  border: 1px solid #fff; }
+
+/* Select ------------------ */
+select {
+  height: 40px;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  -ms-appearance: none;
+  -o-appearance: none;
+  text-align: center; }
+
+select[multiple] {
+  height: auto;
+  min-height: 40px;
+  padding: 0; }
+  select[multiple] option {
+    margin: 0;
+    padding: 8px; }
+
+/* Fieldset ------------------ */
+fieldset {
+  padding: 10px 25px;
+  -webkit-border-radius: 0;
+  -moz-border-radius: 0;
+  border-radius: 0;
+  border: 0 solid #c8c8c8; }
+
+legend {
+  padding: 0 5px;
+  font-weight: 700; }
+
+/* Buttons, Input Type Submit/Reset ------------------ */
+button, input[type="button"], input[type="submit"], input[type="reset"], input[type="image"] {
+  height: 40px;
+  width: 100%;
+  max-width: 200px;
+  background-color: gainsboro;
+  padding: 8px;
+  cursor: pointer;
+  color: #646464;
+  font-weight: 700;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  -webkit-border-radius: 50px;
+  -moz-border-radius: 50px;
+  border-radius: 50px;
+  border: 0 solid #c8c8c8; }
+
+.btn {
+  display: inline-block;
+  width: auto;
+  margin-bottom: 1.5rem;
+  margin-right: 1.5rem;
+  text-decoration: none;
+  text-align: center;
+  padding: 10px;
+  border-radius: 5px;
+  cursor: pointer; }
+
+.btn--small {
+  padding: 0 5px;
+  margin-bottom: 0.5rem;
+  margin-right: 0.5rem; }
+
+.btn--default {
+  border: 3px solid #c8c8c8; }
+
+.btn--default:hover {
+  background-color: #c8c8c8; }
+
+.btn--green {
+  border: 3px solid #87d37c; }
+
+.btn--green:hover {
+  background-color: #87d37c; }
+
+.btn--red {
+  border: 3px solid #d24d57; }
+
+.btn--red:hover {
+  background-color: #d24d57; }
+
+/* States ------------------ */
+input[disabled], textarea[disabled], select[disabled], option[disabled], button[disabled] {
+  cursor: not-allowed; }
+
+input:focus, textarea:focus, select:focus, option:focus, button:focus {
+  background-color: #fff;
+  border-color: #c8c8c8; }
+
+input[type="checkbox"]:focus, input[type="radio"]:focus {
+  outline: #c8c8c8 solid 2px; }
+
+button:hover, input[type="button"]:hover, input[type="submit"]:hover, input[type="reset"]:hover, button:focus, input[type="button"]:focus, input[type="submit"]:focus, input[type="reset"]:focus {
+  background-color: #9b9b9b;
+  color: #646464; }
+
+/* Angular */
+form:not(.form-centered) .input-helper {
+  margin-top: -5px; }
+
+.input-helper--hidden {
+  display: none; }
+
+input.ng-touched.ng-invalid, select.ng-touched.ng-invalid {
+  border: 2px solid #d24d57; }
+
+input.ng-touched.ng-invalid + .input-helper--hidden, select.ng-touched.ng-invalid + .input-helper--hidden {
+  display: block; }
+
+input.ng-touched.ng-valid, select.ng-touched.ng-valid {
+  border: 2px solid #87d37c; }
+
+form.ng-submitted.ng-invalid input.ng-invalid + .input-helper--hidden, form.ng-submitted.ng-invalid select.ng-invalid + .input-helper--hidden {
+  display: block; }
+form.ng-submitted.ng-invalid input.ng-invalid, form.ng-submitted.ng-invalid select.ng-invalid {
+  border: 2px solid #d24d57; }
+
+/* Transaction Filters */
+.transaction-filters {
+  margin-bottom: 20px; }
+  .transaction-filters .filter-container {
+    width: 25%;
+    margin-right: 0;
+    padding: 0 5px;
+    text-align: center; }
+    .transaction-filters .filter-container select {
+      text-align: left; }
+    .transaction-filters .filter-container label {
+      width: 100%;
+      padding-bottom: 0;
+      text-align: left; }
+    @media screen and (max-width: 600px) {
+      .transaction-filters .filter-container {
+        width: 33%; }
+        .transaction-filters .filter-container.filter-container-by-type {
+          display: none; } }
+    @media screen and (max-width: 420px) {
+      .transaction-filters .filter-container {
+        width: 50%; }
+        .transaction-filters .filter-container.filter-container-by-category {
+          display: none; } }
+
+label.radio-button {
+  cursor: pointer;
+  border-radius: 0;
+  border: 0 solid #c8c8c8;
+  display: inline-block;
+  height: 50px;
+  width: auto;
+  padding: 10px;
+  line-height: 30px;
+  margin: 0 20px 20px 0;
+  background-color: #fff; }
+  label.radio-button .radio-button__logo {
+    height: 30px;
+    width: auto;
+    float: right; }
+  label.radio-button .radio-button__label {
+    font-weight: 600;
+    margin-right: 25px; }
+
+label.radio-button:hover {
+  background-color: #9b9b9b;
+  color: #646464; }
+
+/* Centered */
+.form-centered label {
+  display: block;
+  width: 100%;
+  max-width: 400px;
+  margin: 0 auto;
+  text-align: left; }
+.form-centered input {
+  margin-top: 5px; }
+.form-centered .input-group--submit, .form-centered form:not(.form-centered) .input-helper, form:not(.form-centered) .form-centered .input-helper {
+  text-align: left;
+  margin: 10px auto; }
+
+/* -----------------------------
+
+            General
+             
+------------------------------- */
+.btn_mac {
+  background-color: cornflowerblue;
+  cursor: pointer;
+  padding: 5px 15px;
+  border: 0;
+  margin: 0 auto 30px;
+  display: block;
+  width: 100%;
+  max-width: 400px;
+  color: #fff;
+  text-align: center; }
+
+.item-complete-box {
+  border-left: 5px solid #87d37c;
+  color: #87d37c; }
+
+/* -----------------------------
+
+            General
+             
+------------------------------- */
+.modal-container {
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 100%;
+  width: 100%;
+  background-color: #fff;
+  background-color: rgba(255, 255, 255, 0.9); }
+
+.modal-container:not(.showing) {
+  visibility: hidden;
+  opacity: 0;
+  transition: visibility 1s, opacity 1s; }
+
+.modal-container.showing {
+  visibility: visible;
+  opacity: 1;
+  transition: visibility 1s, opacity 1s; }
+
+.modal {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  -webkit-transform: translate(-50%, -50%);
+  transform: translate(-50%, -50%);
+  background-color: #fff;
+  padding: 30px;
+  text-align: center;
+  width: 90%;
+  max-width: 600px; }
+
+.modal:not(.showing) {
+  margin-top: 100px;
+  visibility: hidden;
+  opacity: 0;
+  transition: visibility 0.5s, opacity 0.5s, margin-top 0.5s; }
+
+.modal.showing {
+  margin-top: 0;
+  visibility: visible;
+  opacity: 1;
+  transition: visibility 0.5s, opacity 0.5s, margin-top 0.5s; }
+
+.alert-message--success {
+  border-color: #87d37c; }
+
+.alert-message--warning {
+  border-color: #323232; }
+
+.alert-message--danger {
+  border-color: #d24d57; }
+
+/* -------------------------
+
+	  Task and Goals
+
+------------------------- */
+/* Both */
+/* Goal */
+.goal-overview {
+  text-align: center;
+  margin-bottom: 30px; }
+
+.goal-progress-bar {
+  height: 20px;
+  width: 100%;
+  position: relative;
+  margin-top: 10px;
+  background-color: whitesmoke;
+  border: 1px solid #c8c8c8;
+  border-radius: 50px; }
+  .goal-progress-bar .goal-progress {
+    position: absolute;
+    height: 100%;
+    background-color: #87d37c;
+    border-radius: 50px;
+    top: 0;
+    left: 0; }
+
+/* Task*/
+.task-list {
+  text-align: left; }
+
+.task-list-item {
+  position: relative;
+  background-color: #fff;
+  padding: 5px 15px;
+  border: 0;
+  margin-bottom: 20px; }
+
+.task__statusbox {
+  position: absolute;
+  top: 15px;
+  right: 15px;
+  border: 1px solid cornflowerblue;
+  border-radius: 50%;
+  height: 30px;
+  width: 30px;
+  cursor: pointer;
+  text-align: center; }
+
+.task-list-item:not(.taskListItemCompleted) .task__statusbox i.fa {
+  opacity: 0; }
+
+.goalListItemCompleted, .task-list-item.taskListItemCompleted {
+  opacity: 0.6; }
+  .goalListItemCompleted .task__statusbox i.fa, .task-list-item.taskListItemCompleted .task__statusbox i.fa {
+    opacity: 1;
+    font-size: 1.6rem;
+    line-height: 28px; }
+
+.taskListItemOverdue {
+  border-left: 5px solid #d24d57; }
+
+/* -----------------------------
+
+      Dashboard
+             
+------------------------------- */
+.dashboard {
+  text-align: center;
+  margin: 80px 0; }
+
+.dashboard-quote {
+  margin-bottom: 50px; }

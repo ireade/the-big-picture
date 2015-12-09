@@ -1,0 +1,38 @@
+<main class="dashboard">
+	<div class="container">
+
+	
+	<div class="dashboard-quote">
+		<blockquote>" {{quote.quote}} "</blockquote>
+		<cite>&mdash; {{quote.author}}</cite>
+	</div>
+	
+
+	
+	
+	<section class="latest-tasks">
+		<!-- <h2>Next Tasks</h2> -->
+
+		<ul class="task-list">
+			<li ng-repeat="task in tasks | orderBy: 'deadline' | limitTo : 3" class="task-list-item no-style" ng-class="{ taskListItemOverdue: isOverdue(task.deadline) }">
+				<a href="#/tasks/{{task.$id}}">
+				<span class="task__title">{{task.title}}</span><br>
+				<span class="task__deadline">by {{task.deadline | momentDate }}</span>
+				</a>
+				
+				<br>
+
+				<a href="#/goals/{{task.goal}}">
+					<span class="task__deadline" ng-controller="minGoalsCtrl" ng-init="getGoalTitle(task.goal)">for {{ goalTitle }}</span>
+				</a>
+
+				<div class="task__statusbox" ng-click="updateTaskStatus(task)">
+					<i class="fa fa-check"></i>
+				</div>
+			</li>
+		</ul>
+		
+	</section>
+
+	</div>
+</main>
