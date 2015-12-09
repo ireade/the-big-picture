@@ -1,12 +1,15 @@
-app.controller('TasksCtrl', ['$scope', '$rootScope', 'FIREBASE_URL', '$firebaseArray', '$firebaseObject', '$location', 'CorrectDate', function( $scope, $rootScope,  FIREBASE_URL, $firebaseArray, $firebaseObject, $location, CorrectDate ) {
+app.controller('TasksCtrl', ['$scope', '$rootScope', 'FIREBASE_URL', '$firebaseArray', '$firebaseObject', '$location', 'CorrectDate', 'AlertMessage', function( $scope, $rootScope,  FIREBASE_URL, $firebaseArray, $firebaseObject, $location, CorrectDate, AlertMessage) {
 
 
 	/* DEFINE VARIABLES */
 
 	var tasksRef = new Firebase(FIREBASE_URL + '/tasks/' + $rootScope.currentUser);
-	$scope.tasks = $firebaseArray(tasksRef);
+	var tasks = $firebaseArray(tasksRef);
+	$scope.tasks = tasks;
 
-
+	tasks.$loaded().then(function() {
+		$('.loading-animation').hide();
+	})
 
 
 	/* GENERAL HELPER FUNCTIONS */
@@ -54,18 +57,28 @@ app.controller('TasksCtrl', ['$scope', '$rootScope', 'FIREBASE_URL', '$firebaseA
 
 	$scope.addTask = function(task) {
 
-		var newTask = {
-			title: task.title,
-			deadline: CorrectDate(task.deadline),
-			goal: $scope.goalsList.id,
-			status: 'active',
-			reminder: task.reminder ? CorrectDate(task.reminder) : "",
-			date_added: Firebase.ServerValue.TIMESTAMP
+		if ( $scope.addTaskForm.$invalid ) {
+
+			AlertMessage.invalidForm('addTaskForm');
+
+		} else {
+
+			var newTask = {
+				title: task.title,
+				deadline: CorrectDate(task.deadline),
+				goal: $scope.goalsList.id,
+				status: 'active',
+				reminder: task.reminder ? CorrectDate(task.reminder) : "",
+				date_added: Firebase.ServerValue.TIMESTAMP
+			}
+
+			tasksRef.push(newTask);
+
+			$scope.hideModal();
+
 		}
 
-		tasksRef.push(newTask);
-
-		$scope.hideModal();
+		
 
 	}
 

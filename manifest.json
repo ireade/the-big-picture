@@ -28,5 +28,5 @@
     },
 
 
-    "content_security_policy": "script-src 'self' 'unsafe-eval' https://apis.google.com https://cdn.firebase.com https://thebigpicture.firebaseio.com https://s-softlayer.firebaseio.com/; object-src 'self'"
+    "content_security_policy": "script-src 'self' 'unsafe-eval' https://apis.google.com https://cdn.firebase.com https://thebigpicture.firebaseio.com https://*.firebaseio.com; object-src 'self'"
 }

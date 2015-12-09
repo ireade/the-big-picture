@@ -10,6 +10,12 @@
 						<i class="fa fa-pencil"></i> 
 					</a>
 				</li>
+				
+				<li>
+					<a ng-click="showModal('deleteTaskModal')"> 
+						<i class="fa fa-trash"></i> 
+					</a>
+				</li>
 
 				<li>
 					<a ng-click="updateTaskStatus(task)"> 
@@ -54,22 +60,24 @@
 
 		<h2>Update Task</h2>
 
-		<form novalidate ng-submit="updateTask(task)">
+		<form novalidate name="updateTaskForm" ng-submit="updateTask(task)">
+
+			<div class="error-message-container"></div>
 		
 			<div class="input-group">
-				<label for="">What's the task?</label>
-				<input type="text" ng-model="task.title">
+				<label for="">What's the task? *</label>
+				<input type="text" ng-model="task.title" required>
 			</div>
 
 			<div class="input-group">
-				<label for="">What goal is this for?</label>
+				<label for="">What goal is this for? *</label>
 				
 				<select name="goalsList" id="goalsList" ng-model="goalsList" ng-options="option.name for option in goalsListOptions track by option.id"></select>
 			</div>
 
 			<div class="input-group">
-				<label for="">When's the deadline?</label>
-				<input type="text" ng-model="task.deadline" data-field="datetime">
+				<label for="">When's the deadline? *</label>
+				<input type="text" ng-model="task.deadline" data-field="datetime" required>
 			</div>
 
 			<div class="input-group">
@@ -82,6 +90,27 @@
 			</div>
 
 		</form>
+
+		<a ng-click="hideModal()">Close</a>
+		
+	</section>
+
+	<section class="modal deleteTaskModal">
+
+		<h2>Delete Task</h2>
+
+		<div class="error-message-container"></div>
+
+		<p>Deleting a task is permanent.</p>
+		
+		<form ng-submit="deleteTask(goal)" novalidate>
+
+			<div class="input-group--submit">
+				<input type="submit" value="Delete Task">
+			</div>
+		</form>
+
+
 
 		<a ng-click="hideModal()">Close</a>
 		

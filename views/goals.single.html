@@ -11,7 +11,13 @@
 					</a>
 				</li>
 
-				<li ng-show="completedTasksNo === tasks.length">
+				<li>
+					<a ng-click="showModal('deleteGoalModal')"> 
+						<i class="fa fa-trash"></i> 
+					</a>
+				</li>
+
+				<li ng-if="tasksCompleted">
 					<a ng-click="updateGoalStatus(goal)"> 
 						<i class="fa fa-check"></i> 
 					</a>
@@ -52,7 +58,7 @@
 		</a>
 
 
-		<div class="item-complete-box" ng-show="completedTasksNo === tasks.length">
+		<div class="item-complete-box" ng-if="tasksCompleted">
 			Tasks Complete!<br><br>
 			You've completed all the tasks for this goal. Now you can mark the goal as complete or add more tasks.
 		</div>
@@ -71,19 +77,17 @@
 
 
 		<section>
-			<h3>Completed</h3>
-
 			<ul class="task-list">
-			<li ng-repeat="task in tasks | filter: { status : 'complete' }" class="task-list-item no-style taskListItemCompleted">
-				<a href="#/tasks/{{task.$id}}">
-				<span class="task__title">{{task.title}}</span><br>
-				<span class="task__deadline">by {{task.deadline | momentDate }}</span>
-				</a>
-				<div class="task__statusbox" ng-click="updateTaskStatus(task)">
-					<i class="fa fa-check"></i>
-				</div>
-			</li>
-		</ul>
+				<li ng-repeat="task in tasks | filter: { status : 'complete' }" class="task-list-item no-style taskListItemCompleted">
+					<a href="#/tasks/{{task.$id}}">
+					<span class="task__title">{{task.title}}</span><br>
+					<span class="task__deadline">by {{task.deadline | momentDate }}</span>
+					</a>
+					<div class="task__statusbox" ng-click="updateTaskStatus(task)">
+						<i class="fa fa-check"></i>
+					</div>
+				</li>
+			</ul>
 		</section>
 	</section>
 
@@ -100,20 +104,23 @@
 
 		<h2>Update Goal</h2>
 
-		<form ng-submit="updateGoal(goal)">
+		<form name="updateGoalForm" ng-submit="updateGoal(goal)" novalidate>
+
+			<div class="error-message-container"></div>
+
 			<div class="input-group">
-				<label for="">What's your goal?</label>
-				<input type="text" ng-model="goal.title">
+				<label for="">What's your goal? *</label>
+				<input type="text" ng-model="goal.title" required>
 			</div>
 
 			<div class="input-group">
-				<label for="">Why do you want to do this?</label>
-				<textarea name="" id="" cols="30" rows="5" ng-model="goal.description"></textarea>
+				<label for="">Why do you want to do this? *</label>
+				<textarea name="" id="" cols="30" rows="5" ng-model="goal.description" required></textarea>
 			</div>
 
 			<div class="input-group">
-				<label for="">When's the deadline?</label>
-				<input type="text" ng-model="goal.deadline" data-field="datetime">
+				<label for="">When's the deadline? *</label>
+				<input type="text" ng-model="goal.deadline" data-field="datetime" required>
 			</div>
 
 			<div class="input-group--submit">
@@ -130,19 +137,20 @@
 
 		<h2>Add Task</h2>
 
-		<div class="error-message-container"></div>
 
-		<form ng-submit="quickAddTask(task)" novalidate>
+		<form name="quickAddTaskForm" ng-submit="quickAddTask(task)" novalidate>
+
+			<div class="error-message-container"></div>
 			
 			<div class="input-group">
-				<label for="">What's the task?</label>
-				<input type="text" ng-model="task.title">
+				<label for="">What's the task? *</label>
+				<input type="text" ng-model="task.title" required>
 			</div>
 
 
 			<div class="input-group">
-				<label for="">When's the deadline?</label>
-				<input type="text" ng-model="task.deadline" data-field="datetime">
+				<label for="">When's the deadline? *</label>
+				<input type="text" ng-model="task.deadline" data-field="datetime" required>
 			</div>
 
 			<div class="input-group">
@@ -155,6 +163,27 @@
 			</div>
 
 		</form>
+
+		<a ng-click="hideModal()">Close</a>
+		
+	</section>
+
+
+
+	<section class="modal deleteGoalModal">
+
+		<h2>Delete Goal</h2>
+
+		<p>Deleting a goal is permanent and will delete any tasks associated with the goal.</p>
+		
+		<form ng-submit="deleteGoal(goal)" novalidate>
+
+			<div class="input-group--submit">
+				<input type="submit" value="Delete Goal">
+			</div>
+		</form>
+
+
 
 		<a ng-click="hideModal()">Close</a>
 		

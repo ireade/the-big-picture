@@ -33,7 +33,6 @@
 
 
 <section>
-	<h2>Completed</h2>
 	
 	<ul>
 		<li ng-repeat="goal in goals | filter: { status : 'complete' } " class="site-box goal-list-item no-style goalListItemCompleted">
@@ -71,20 +70,22 @@
 
 		<h2>Add Goal</h2>
 
-		<form novalidate ng-submit="addGoal(goal)">
+		<form novalidate name="addGoalForm" ng-submit="addGoal(goal)">
+
+			<div class="error-message-container"></div>
 		
 			<div class="input-group">
-				<label for="">What's your goal?</label>
+				<label for="">What's your goal? *</label>
 				<input type="text" ng-model="goal.title" required>
 			</div>
 
 			<div class="input-group">
-				<label for="">Why do you want to do this?</label>
-				<textarea name="" id="" cols="30" rows="5" ng-model="goal.description"></textarea>
+				<label for="">Why do you want to do this? *</label>
+				<textarea name="" id="" cols="30" rows="5" ng-model="goal.description" required></textarea>
 			</div>
 
 			<div class="input-group">
-				<label for="">When's the deadline?</label>
+				<label for="">When's the deadline? *</label>
 				<input type="text" ng-model="goal.deadline" data-field="datetime" required>
 			</div>
 

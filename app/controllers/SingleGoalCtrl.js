@@ -1,4 +1,4 @@
-app.controller('SingleGoalCtrl', ['$scope', '$rootScope', '$routeParams', 'FIREBASE_URL', '$firebaseArray', '$firebaseObject', '$location', 'CorrectDate', function( $scope, $rootScope, $routeParams, FIREBASE_URL, $firebaseArray, $firebaseObject, $location, CorrectDate ) {
+app.controller('SingleGoalCtrl', ['$scope', '$rootScope', '$routeParams', 'FIREBASE_URL', '$firebaseArray', '$firebaseObject', '$location', 'CorrectDate', 'AlertMessage', function( $scope, $rootScope, $routeParams, FIREBASE_URL, $firebaseArray, $firebaseObject, $location, CorrectDate, AlertMessage ) {
 
 
 
@@ -9,6 +9,10 @@ app.controller('SingleGoalCtrl', ['$scope', '$rootScope', '$routeParams', 'FIREB
 	var goalRef = new Firebase(FIREBASE_URL + '/goals/' + $rootScope.currentUser + '/' + goalID);
 	var goal = $firebaseObject(goalRef);
 	$scope.goal = goal;
+
+	goal.$loaded().then(function() {
+		$('.loading-animation').hide();
+	})
 
 	var tasksRef = new Firebase(FIREBASE_URL + '/tasks/' + $rootScope.currentUser);
 	var query = tasksRef.orderByChild("goal").equalTo(goalID);
@@ -21,10 +25,14 @@ app.controller('SingleGoalCtrl', ['$scope', '$rootScope', '$routeParams', 'FIREB
 		angular.forEach(tasks, function(task) {
 			if ( task.status === 'complete' ) {
 				$scope.completedTasksNo++;
+
+				$scope.tasksCompleted = ($scope.completedTasksNo === tasks.length) && (tasks.length > 0);
 			}
 		})
 
 	})
+
+	$scope.tasksCompleted = ($scope.completedTasksNo === tasks.length) && (tasks.length > 0);
 
 
 
@@ -63,13 +71,21 @@ app.controller('SingleGoalCtrl', ['$scope', '$rootScope', '$routeParams', 'FIREB
 
 	$scope.updateGoal = function(goal) {
 
-		goalRef.update({
-			title: goal.title,
-			description: goal.description,
-			deadline: CorrectDate(goal.deadline),
-		})
+		if ( $scope.updateGoalForm.$invalid ) {
 
-		$scope.hideModal();
+			AlertMessage.invalidForm('updateGoalForm');
+
+		} else {
+
+			goalRef.update({
+				title: goal.title,
+				description: goal.description,
+				deadline: CorrectDate(goal.deadline),
+			})
+
+			$scope.hideModal();
+
+		}
 
 	}
 
@@ -99,20 +115,30 @@ app.controller('SingleGoalCtrl', ['$scope', '$rootScope', '$routeParams', 'FIREB
 
 	$scope.quickAddTask = function(task) {
 
-		var newTask = {
-			title: task.title,
-			deadline: CorrectDate(task.deadline),
-			reminder: task.reminder ? CorrectDate(task.reminder) : "",
-			goal: goalID,
-			status: 'active',
-			date_added: Firebase.ServerValue.TIMESTAMP
+		if ( $scope.quickAddTaskForm.$invalid ) {
+
+			AlertMessage.invalidForm('quickAddTaskForm');
+
+		} else {
+
+			var newTask = {
+				title: task.title,
+				deadline: CorrectDate(task.deadline),
+				reminder: task.reminder ? CorrectDate(task.reminder) : "",
+				goal: goalID,
+				status: 'active',
+				date_added: Firebase.ServerValue.TIMESTAMP
+			}
+
+			tasksRef.push(newTask);
+
+			$scope.task = "";
+
+			$scope.hideModal();
+
 		}
 
-		tasksRef.push(newTask);
-
-		$scope.task = "";
-
-		$scope.hideModal();
+		
 
 	};
 
@@ -121,6 +147,8 @@ app.controller('SingleGoalCtrl', ['$scope', '$rootScope', '$routeParams', 'FIREB
 		var taskRef = new Firebase(FIREBASE_URL + '/tasks/' + $rootScope.currentUser + '/' + task.$id);
 		var task = $firebaseObject(taskRef);
 
+		
+
 		task.$loaded().then(function() {
 
 			if (task.status === 'active') {
@@ -128,12 +156,16 @@ app.controller('SingleGoalCtrl', ['$scope', '$rootScope', '$routeParams', 'FIREB
 				taskRef.update({
 					status: 'complete',
 				})
+
+				$scope.tasksCompleted = ($scope.completedTasksNo === tasks.length) && (tasks.length > 0);
 			}
 			else if (task.status === 'complete') {
 				$scope.completedTasksNo--
 				taskRef.update({
 					status: 'active',
 				})
+
+				$scope.tasksCompleted = ($scope.completedTasksNo === tasks.length) && (tasks.length > 0);
 
 				if (goal.status === 'complete') {
 					goalRef.update({
@@ -144,6 +176,30 @@ app.controller('SingleGoalCtrl', ['$scope', '$rootScope', '$routeParams', 'FIREB
 
 		})
 		
+	}
+
+
+
+	/* ***********************
+
+		DELETE GOAL
+
+	*********************** */
+
+
+	$scope.deleteGoal = function(goal) {
+
+		for (i = 0; i < tasks.length; i++) {
+
+			var task = new Firebase(FIREBASE_URL + '/tasks/' + $rootScope.currentUser + '/' + tasks[i].$id);
+			task.remove();
+
+			if ( i === (tasks.length - 1) ) {
+				goalRef.remove();
+				$location.path('/goals');
+			}
+		}
+
 	}
 
 

@@ -9,6 +9,10 @@ app.controller('DashboardCtrl', ['$scope', '$rootScope', 'FIREBASE_URL', '$fireb
 	var tasks = $firebaseArray(query);
 	$scope.tasks = tasks;
 
+	tasks.$loaded().then(function() {
+		$('.loading-animation').hide();
+	})
+
 
 
 	/* GENERAL HELPER FUNCTIONS */

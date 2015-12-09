@@ -1,11 +1,15 @@
-app.controller('GoalsCtrl', ['$scope', '$rootScope', 'FIREBASE_URL', '$firebaseArray', '$firebaseObject', '$location', 'CorrectDate', function( $scope, $rootScope,  FIREBASE_URL, $firebaseArray, $firebaseObject, $location, CorrectDate ) {
+app.controller('GoalsCtrl', ['$scope', '$rootScope', 'FIREBASE_URL', '$firebaseArray', '$firebaseObject', '$location', 'CorrectDate', 'AlertMessage', function( $scope, $rootScope,  FIREBASE_URL, $firebaseArray, $firebaseObject, $location, CorrectDate, AlertMessage) {
 
 
 	/* DEFINE VARIABLES */
 
 	var goalsRef = new Firebase(FIREBASE_URL + '/goals/' + $rootScope.currentUser);
+	var goals = $firebaseArray(goalsRef);
+	$scope.goals = goals;
 
-	$scope.goals = $firebaseArray(goalsRef);
+	goals.$loaded().then(function() {
+		$('.loading-animation').hide();
+	})
 
 
 
@@ -39,19 +43,27 @@ app.controller('GoalsCtrl', ['$scope', '$rootScope', 'FIREBASE_URL', '$firebaseA
 
 	$scope.addGoal = function(goal) {
 
-		var newGoal = {
-			title: goal.title,
-			description: goal.description ? goal.description : "",
-			deadline: CorrectDate(goal.deadline),
-			status: 'active',
-			date_added: Firebase.ServerValue.TIMESTAMP
+		if ( $scope.addGoalForm.$invalid ) {
+
+			AlertMessage.invalidForm('addGoalForm');
+
+		} else {
+
+			var newGoal = {
+				title: goal.title,
+				description: goal.description ? goal.description : "",
+				deadline: CorrectDate(goal.deadline),
+				status: 'active',
+				date_added: Firebase.ServerValue.TIMESTAMP
+
+			}
+
+			goalsRef.push(newGoal);
+			$scope.hideModal();
 
 		}
 
-
-		goalsRef.push(newGoal);
-
-		$scope.hideModal();
+		
 
 	}
 

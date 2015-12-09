@@ -236,15 +236,16 @@ section {
 html, body {
   min-height: 100%;
   position: relative;
-  background-color: whitesmoke; }
+  background-color: whitesmoke;
+  padding-bottom: 50px; }
 
 section {
   position: relative; }
 
-.box-shadow, .floating-nav-buttons li, .inline-button-right, .site-box, .item-complete-box, input, textarea, select, option, optgroup, button, legend, fieldset, .btn_mac, .modal, .task-list-item {
+.box-shadow, .floating-nav-buttons li, .inline-button-right, .site-box, .item-complete-box, .alert-message, input, textarea, select, option, optgroup, button, legend, fieldset, .btn_mac, .modal, .task-list-item {
   box-shadow: 1px 1px 2px #c8c8c8; }
 
-.site-box, .item-complete-box {
+.site-box, .item-complete-box, .alert-message {
   background-color: #fff;
   padding: 20px;
   border: 0;
@@ -457,7 +458,8 @@ datalist {
 label {
   display: inline-block;
   margin: 10px 0;
-  width: 200px;
+  margin-bottom: 0;
+  width: 300px;
   vertical-align: top; }
 
 .input-group--submit, form:not(.form-centered) .input-helper {
@@ -491,7 +493,7 @@ input[type="text"], input[type="email"], input[type="password"], input[type="sea
   -webkit-border-radius: 0;
   -moz-border-radius: 0;
   border-radius: 0;
-  border: 0 solid #c8c8c8; }
+  border: 2px solid #c8c8c8; }
 
 /* Fields with standard height */
 input[type="text"], input[type="email"], input[type="password"], input[type="search"], input[type="color"], input[type="date"], input[type="datetime-local"], input[type="month"], input[type="number"], input[type="tel"], input[type="time"], input[type="url"], input[type="week"], input[list] {
@@ -532,7 +534,7 @@ input[type="checkbox"], input[type="radio"] {
   -webkit-border-radius: 0;
   -moz-border-radius: 0;
   border-radius: 0;
-  border: 0 solid #c8c8c8; }
+  border: 2px solid #c8c8c8; }
   .radio-input-container input[type="radio"] {
     position: absolute;
     top: 2px;
@@ -571,7 +573,7 @@ fieldset {
   -webkit-border-radius: 0;
   -moz-border-radius: 0;
   border-radius: 0;
-  border: 0 solid #c8c8c8; }
+  border: 2px solid #c8c8c8; }
 
 legend {
   padding: 0 5px;
@@ -592,7 +594,7 @@ button, input[type="button"], input[type="submit"], input[type="reset"], input[t
   -webkit-border-radius: 50px;
   -moz-border-radius: 50px;
   border-radius: 50px;
-  border: 0 solid #c8c8c8; }
+  border: 2px solid #c8c8c8; }
 
 .btn {
   display: inline-block;
@@ -692,7 +694,7 @@ form.ng-submitted.ng-invalid input.ng-invalid, form.ng-submitted.ng-invalid sele
 label.radio-button {
   cursor: pointer;
   border-radius: 0;
-  border: 0 solid #c8c8c8;
+  border: 2px solid #c8c8c8;
   display: inline-block;
   height: 50px;
   width: auto;
@@ -794,14 +796,19 @@ label.radio-button:hover {
   opacity: 1;
   transition: visibility 0.5s, opacity 0.5s, margin-top 0.5s; }
 
+.alert-message {
+  padding: 10px;
+  max-width: 400px;
+  margin: 0 auto; }
+
 .alert-message--success {
-  border-color: #87d37c; }
+  border-left: 3px solid #87d37c; }
 
 .alert-message--warning {
-  border-color: #323232; }
+  border-left: 3px solid #323232; }
 
 .alert-message--danger {
-  border-color: #d24d57; }
+  border-left: 3px solid #d24d57; }
 
 /* -------------------------
 
@@ -856,7 +863,7 @@ label.radio-button:hover {
   opacity: 0; }
 
 .goalListItemCompleted, .task-list-item.taskListItemCompleted {
-  opacity: 0.6; }
+  opacity: 0.4; }
   .goalListItemCompleted .task__statusbox i.fa, .task-list-item.taskListItemCompleted .task__statusbox i.fa {
     opacity: 1;
     font-size: 1.6rem;
@@ -864,6 +871,52 @@ label.radio-button:hover {
 
 .taskListItemOverdue {
   border-left: 5px solid #d24d57; }
+
+.loading-animation {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  -webkit-transform: translate(-50%, -50%);
+  transform: translate(-50%, -50%); }
+
+/* http://tobiasahlin.com/spinkit/ */
+.spinner {
+  width: 40px;
+  height: 40px;
+  position: relative;
+  margin: 100px auto; }
+
+.double-bounce1, .double-bounce2 {
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  background-color: cornflowerblue;
+  opacity: 0.6;
+  position: absolute;
+  top: 0;
+  left: 0;
+  -webkit-animation: sk-bounce 2s infinite ease-in-out;
+  animation: sk-bounce 2s infinite ease-in-out; }
+
+.double-bounce2 {
+  -webkit-animation-delay: -1s;
+  animation-delay: -1s; }
+
+@-webkit-keyframes sk-bounce {
+  0%, 100% {
+    -webkit-transform: scale(0); }
+
+  50% {
+    -webkit-transform: scale(1); } }
+
+@keyframes sk-bounce {
+  0%, 100% {
+    transform: scale(0);
+    -webkit-transform: scale(0); }
+
+  50% {
+    transform: scale(1);
+    -webkit-transform: scale(1); } }
 
 /* -----------------------------
 

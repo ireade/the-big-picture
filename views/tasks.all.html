@@ -50,22 +50,24 @@
 
 		<h2>Add Task</h2>
 
-		<form novalidate ng-submit="addTask(task)">
+		<form novalidate name="addTaskForm" ng-submit="addTask(task)">
+
+			<div class="error-message-container"></div>
 		
 			<div class="input-group">
-				<label for="">What's the task?</label>
-				<input type="text" ng-model="task.title">
+				<label for="">What's the task? *</label>
+				<input type="text" ng-model="task.title" required>
 			</div>
 
 			<div class="input-group">
-				<label for="">What goal is this for?</label>
+				<label for="">What goal is this for? *</label>
 				
-				<select name="goalsList" id="goalsList" ng-model="goalsList" ng-options="option.name for option in goalsListOptions track by option.id"></select>
+				<select name="goalsList" id="goalsList" ng-model="goalsList" ng-options="option.name for option in goalsListOptions track by option.id" required></select>
 			</div>
 
 			<div class="input-group">
-				<label for="">When's the deadline?</label>
-				<input type="text" ng-model="task.deadline" data-field="datetime">
+				<label for="">When's the deadline? *</label>
+				<input type="text" ng-model="task.deadline" data-field="datetime" required>
 			</div>
 
 			<div class="input-group">

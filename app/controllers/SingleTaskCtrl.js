@@ -1,4 +1,4 @@
-app.controller('SingleTaskCtrl', ['$scope', '$rootScope', '$routeParams', 'FIREBASE_URL', '$firebaseArray', '$firebaseObject', '$location', 'CorrectDate', function( $scope, $rootScope, $routeParams, FIREBASE_URL, $firebaseArray, $firebaseObject, $location, CorrectDate ) {
+app.controller('SingleTaskCtrl', ['$scope', '$rootScope', '$routeParams', 'FIREBASE_URL', '$firebaseArray', '$firebaseObject', '$location', 'CorrectDate', 'AlertMessage', function( $scope, $rootScope, $routeParams, FIREBASE_URL, $firebaseArray, $firebaseObject, $location, CorrectDate, AlertMessage ) {
 
 
 	/* DEFINE VARIABLES */
@@ -10,9 +10,12 @@ app.controller('SingleTaskCtrl', ['$scope', '$rootScope', '$routeParams', 'FIREB
 	$scope.task = task;
 
 
+
 	$scope.goalTitle;
 
 	task.$loaded().then(function() {
+		$('.loading-animation').hide();
+
 		var goalRef = new Firebase(FIREBASE_URL + '/goals/' + $rootScope.currentUser + '/' + task.goal);
 	    var goal = $firebaseObject(goalRef);
 
@@ -81,12 +84,22 @@ app.controller('SingleTaskCtrl', ['$scope', '$rootScope', '$routeParams', 'FIREB
 
 	$scope.updateTask = function(task) {
 
-		taskRef.update({
-			title: task.title,
-			deadline: CorrectDate(task.deadline),
-			goal: $scope.goalsList.id,
-			reminder: CorrectDate(task.reminder)
-		})
+		if ( $scope.updateTaskForm.$invalid ) {
+
+			AlertMessage.invalidForm('updateTaskForm');
+
+		} else {
+
+			taskRef.update({
+				title: task.title,
+				deadline: CorrectDate(task.deadline),
+				goal: $scope.goalsList.id,
+				reminder: CorrectDate(task.reminder)
+			})
+
+		}
+
+		
 
 	}
 
@@ -106,6 +119,22 @@ app.controller('SingleTaskCtrl', ['$scope', '$rootScope', '$routeParams', 'FIREB
 			})
 		}
 		
+	}
+
+
+
+	/* ***********************
+
+		DELETE GOAL
+
+	*********************** */
+
+
+	$scope.deleteTask = function(task) {
+
+		taskRef.remove();
+		$location.path('/tasks');
+
 	}
 
 
