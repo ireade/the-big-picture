@@ -1,3 +1,10 @@
+<div class="loading-animation">
+<div class="spinner">
+  <div class="double-bounce1"></div>
+  <div class="double-bounce2"></div>
+</div>
+</div>
+
 <main>
 <header class="page-header">
 	<div class="container">
@@ -15,7 +22,15 @@
 	</div>
 </header>
 
-<div class="container">
+<div class="container initial-hidden">
+
+	<div class="error-message-container" ng-if="goals.length === 0">
+		<div class="alert-message alert-message--warning">
+			<p>Looks like you haven't got any goals yet. Create a goal to get started!</p>
+
+			<a ng-click="showModal('addGoalModal')">Add a Goal</a>
+		</div>
+	</div>
 
 	<ul class="goal-list">
 		<li ng-repeat="goal in goals | orderBy: 'deadline' | filter: { status : 'active' } " class="site-box goal-list-item no-style">

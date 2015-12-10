@@ -1,3 +1,11 @@
+<div class="loading-animation">
+<div class="spinner">
+  <div class="double-bounce1"></div>
+  <div class="double-bounce2"></div>
+</div>
+</div>
+
+
 <main>
 <header class="page-header">
 	<div class="container">
@@ -27,7 +35,7 @@
 	</div>
 </header>
 
-<div class="container">
+<div class="container initial-hidden">
 
 
 	<div class="item-complete-box" ng-if="goal.status === 'complete'">Goal Completed!</div>
@@ -45,7 +53,15 @@
 		<h2>
 			{{tasks.length}} Tasks<br>
 			{{completedTasksNo}} Completed<br>
-		</h2>	
+		</h2>
+
+		<div class="error-message-container" ng-if="tasks.length === 0">
+			<div class="alert-message alert-message--warning">
+				<p>Looks like you haven't added any tasks to this goal yet. Create a task to get started!</p>
+
+				<a ng-click="showModal('addTaskModal')">Add a Task</a>
+			</div>
+		</div>
 	</section>
 
 	

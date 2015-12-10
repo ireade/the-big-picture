@@ -3,12 +3,15 @@ app.controller('GoalsCtrl', ['$scope', '$rootScope', 'FIREBASE_URL', '$firebaseA
 
 	/* DEFINE VARIABLES */
 
+	$scope.pageClass = 'page-goals';
+
 	var goalsRef = new Firebase(FIREBASE_URL + '/goals/' + $rootScope.currentUser);
 	var goals = $firebaseArray(goalsRef);
 	$scope.goals = goals;
 
 	goals.$loaded().then(function() {
 		$('.loading-animation').hide();
+		$('.initial-hidden').fadeIn();
 	})
 
 

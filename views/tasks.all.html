@@ -1,3 +1,10 @@
+<div class="loading-animation">
+<div class="spinner">
+  <div class="double-bounce1"></div>
+  <div class="double-bounce2"></div>
+</div>
+</div>
+
 <main>
 <header class="page-header">
 	<div class="container">
@@ -15,7 +22,26 @@
 	</div>
 </header>
 
-<div class="container">
+<div class="container initial-hidden">
+
+	<div class="error-message-container" ng-if="tasks.length === 0 || goals.length === 0">
+		<div class="alert-message alert-message--warning">
+
+			<span ng-if="goals.length === 0">
+				<p>Looks like you haven't got any goals yet. You need to create a goal before you can add tasks.</p>
+
+				<a ng-href="#/goals">Add a Goal</a>
+			</span>
+
+			<span ng-if="tasks.length === 0 && goals.length != 0">
+				<p>Looks like you haven't got any tasks yet. Create a task to get started!</p>
+
+				<a ng-click="showModal('addTaskModal')">Add a Task</a>
+			</span>
+
+			
+		</div>
+	</div>
 
 	<ul class="task-list">
 		<li ng-repeat="task in tasks | orderBy: 'deadline' | filter: { status : 'active' }" class="task-list-item no-style" ng-class="{ taskListItemOverdue: isOverdue(task.deadline) }">

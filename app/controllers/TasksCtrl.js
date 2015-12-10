@@ -3,12 +3,15 @@ app.controller('TasksCtrl', ['$scope', '$rootScope', 'FIREBASE_URL', '$firebaseA
 
 	/* DEFINE VARIABLES */
 
+	$scope.pageClass = 'page-tasks';
+
 	var tasksRef = new Firebase(FIREBASE_URL + '/tasks/' + $rootScope.currentUser);
 	var tasks = $firebaseArray(tasksRef);
 	$scope.tasks = tasks;
 
 	tasks.$loaded().then(function() {
 		$('.loading-animation').hide();
+		$('.initial-hidden').fadeIn();
 	})
 
 
@@ -45,6 +48,7 @@ app.controller('TasksCtrl', ['$scope', '$rootScope', 'FIREBASE_URL', '$firebaseA
 	// Dropdown Menu of Goals
 	var goalsRef = new Firebase(FIREBASE_URL + '/goals/' + $rootScope.currentUser);
 	var goals = $firebaseArray(goalsRef);
+	$scope.goals = goals;
 	$scope.goalsListOptions = [];
 	goals.$loaded().then(function() {
 		angular.forEach(goals, function(goal) {
@@ -54,6 +58,7 @@ app.controller('TasksCtrl', ['$scope', '$rootScope', 'FIREBASE_URL', '$firebaseA
 			})
 		})
 	})
+
 
 	$scope.addTask = function(task) {
 

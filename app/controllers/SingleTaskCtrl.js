@@ -3,6 +3,8 @@ app.controller('SingleTaskCtrl', ['$scope', '$rootScope', '$routeParams', 'FIREB
 
 	/* DEFINE VARIABLES */
 
+	$scope.pageClass = 'page-task';
+
 	var taskID = $routeParams.task;
 
 	var taskRef = new Firebase(FIREBASE_URL + '/tasks/' + $rootScope.currentUser + '/' + taskID);
@@ -15,6 +17,7 @@ app.controller('SingleTaskCtrl', ['$scope', '$rootScope', '$routeParams', 'FIREB
 
 	task.$loaded().then(function() {
 		$('.loading-animation').hide();
+		$('.initial-hidden').fadeIn();
 
 		var goalRef = new Firebase(FIREBASE_URL + '/goals/' + $rootScope.currentUser + '/' + task.goal);
 	    var goal = $firebaseObject(goalRef);
@@ -24,8 +27,11 @@ app.controller('SingleTaskCtrl', ['$scope', '$rootScope', '$routeParams', 'FIREB
 	  	})
 
 
+	  	//$scope.task.deadline = ReversedDate(task.deadline);
+
+
 	  	if ( !task.reminder ) {
-	  		task.reminder = task.deadline;
+	  		$scope.task.reminder = task.deadline;
 	  	}
 
 

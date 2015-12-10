@@ -4,6 +4,8 @@ app.controller('SingleGoalCtrl', ['$scope', '$rootScope', '$routeParams', 'FIREB
 
 	/* DEFINE VARIABLES */
 
+	$scope.pageClass = 'page-goal';
+
 	var goalID = $routeParams.goal;
 
 	var goalRef = new Firebase(FIREBASE_URL + '/goals/' + $rootScope.currentUser + '/' + goalID);
@@ -12,6 +14,7 @@ app.controller('SingleGoalCtrl', ['$scope', '$rootScope', '$routeParams', 'FIREB
 
 	goal.$loaded().then(function() {
 		$('.loading-animation').hide();
+		$('.initial-hidden').fadeIn();
 	})
 
 	var tasksRef = new Firebase(FIREBASE_URL + '/tasks/' + $rootScope.currentUser);

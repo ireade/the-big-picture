@@ -4,6 +4,8 @@ app.controller('DashboardCtrl', ['$scope', '$rootScope', 'FIREBASE_URL', '$fireb
 
 	/* DEFINE VARIABLES */
 
+	$scope.pageClass = 'page-dashboard';
+
 	var tasksRef = new Firebase(FIREBASE_URL + '/tasks/' + $rootScope.currentUser);
 	var query = tasksRef.orderByChild("status").equalTo("active");
 	var tasks = $firebaseArray(query);
@@ -11,6 +13,7 @@ app.controller('DashboardCtrl', ['$scope', '$rootScope', 'FIREBASE_URL', '$fireb
 
 	tasks.$loaded().then(function() {
 		$('.loading-animation').hide();
+		$('.initial-hidden').fadeIn();
 	})
 
 
@@ -66,7 +69,7 @@ app.controller('DashboardCtrl', ['$scope', '$rootScope', 'FIREBASE_URL', '$fireb
 	];
 
 
-	var ceiling = quotes.length;
+	var ceiling = quotes.length - 1;
 	var randomNumber = Math.floor(Math.random() * (ceiling + 1));
 
 	$scope.quote = quotes[randomNumber];
@@ -77,7 +80,29 @@ app.controller('DashboardCtrl', ['$scope', '$rootScope', 'FIREBASE_URL', '$fireb
 
 
 	
+	/* UPDATE TASK STATUS */
 
+	$scope.updateTaskStatus = function(task) {
+
+		var taskRef = new Firebase(FIREBASE_URL + '/tasks/' + $rootScope.currentUser + '/' + task.$id);
+		var task = $firebaseObject(taskRef);
+
+		task.$loaded().then(function() {
+
+			if (task.status === 'active') {
+				taskRef.update({
+					status: 'complete',
+				})
+			}
+			else if (task.status === 'complete') {
+				taskRef.update({
+					status: 'active',
+				})
+			}
+
+		})
+		
+	}
 
 
 
