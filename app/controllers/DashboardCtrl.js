@@ -27,6 +27,9 @@ app.controller('DashboardCtrl', ['$scope', '$rootScope', 'FIREBASE_URL', '$fireb
 	}
 
 
+
+	/* QUOTES */
+
 	var quotes = [
 		{
 			quote: "There is no substitute for hard work",
@@ -62,11 +65,21 @@ app.controller('DashboardCtrl', ['$scope', '$rootScope', 'FIREBASE_URL', '$fireb
 		}
 	];
 
-	var ceiling = quotes.length;
 
-	var randomNumber = Math.floor(Math.random() * (ceiling - 0 + 1)) + 0;
+	var ceiling = quotes.length;
+	var randomNumber = Math.floor(Math.random() * (ceiling + 1));
 
 	$scope.quote = quotes[randomNumber];
+
+
+
+
+
+
+	
+
+
+
 
 
 

@@ -124,7 +124,7 @@ app.controller('SingleGoalCtrl', ['$scope', '$rootScope', '$routeParams', 'FIREB
 			var newTask = {
 				title: task.title,
 				deadline: CorrectDate(task.deadline),
-				reminder: task.reminder ? CorrectDate(task.reminder) : "",
+				reminder: task.reminder ? CorrectDate(task.reminder) : CorrectDate(task.deadline),
 				goal: goalID,
 				status: 'active',
 				date_added: Firebase.ServerValue.TIMESTAMP

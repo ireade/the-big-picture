@@ -7,7 +7,12 @@
 
 
     "permissions": [
-        "http://*/*", "https://*/*", "storage", "tabs"
+        "http://*/*", 
+        "https://*/*", 
+        "storage", 
+        "tabs",
+        "notifications",
+        "alarms"
     ],
 
 
@@ -16,8 +21,8 @@
     },
 
     "background": {
-        "scripts": ["script.js"],
-        "persistent": false
+        "scripts": ["background.js"],
+        "persistent": true
     },
 
 
