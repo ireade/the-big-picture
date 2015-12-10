@@ -17,6 +17,12 @@
 						<i class="fa fa-pencil"></i> 
 					</a>
 				</li>
+
+				<li>
+					<a ng-click="showModal('updateAlarmModal')"> 
+						<i class="fa fa-bell"></i> 
+					</a>
+				</li>
 				
 				<li>
 					<a ng-click="showModal('deleteTaskModal')"> 
@@ -50,6 +56,10 @@
 		</a>
 
 
+	</div>
+
+	<div class="site-box" ng-if="task.reminder != task.deadline">
+		Alarm set for {{ task.reminder }}
 	</div>
 
 	
@@ -96,6 +106,43 @@
 			<input type="submit" value="Update Task">
 			</div>
 
+		</form>
+
+		<a ng-click="hideModal()">Close</a>
+		
+	</section>
+
+
+
+	<section class="modal updateAlarmModal">
+
+		<h2>Alarm</h2>
+
+		<form novalidate name="addAlarmForm" ng-submit="addAlarm(taskAlarm)">
+
+			<div class="error-message-container"></div>
+
+			<div class="input-group">
+				<label for="">When do you want to be reminded about this? *</label>
+				<input type="text" ng-model="taskAlarm.deadline" data-field="datetime" required>
+			</div>
+
+			<!-- <div class="input-group">
+				<label for="">Repeat this alarm every</label>
+				<input type="text" ng-model="taskAlarm.repeatEvery" data-field="datetime">
+			</div> -->
+
+			<div class="input-group--submit">
+			<input type="submit" value="Add Alarm">
+			</div>
+
+		</form>
+
+
+		<form novalidate name="removeAlarmForm" ng-submit="removeAlarm(taskAlarm)">
+			<div class="input-group--submit">
+			<input type="submit" value="Remove Alarm">
+			</div>
 		</form>
 
 		<a ng-click="hideModal()">Close</a>

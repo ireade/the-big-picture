@@ -1,4 +1,4 @@
-app.controller('SingleTaskCtrl', ['$scope', '$rootScope', '$routeParams', 'FIREBASE_URL', '$firebaseArray', '$firebaseObject', '$location', 'CorrectDate', 'AlertMessage', function( $scope, $rootScope, $routeParams, FIREBASE_URL, $firebaseArray, $firebaseObject, $location, CorrectDate, AlertMessage ) {
+app.controller('SingleTaskCtrl', ['$scope', '$rootScope', '$routeParams', '$filter', 'FIREBASE_URL', '$firebaseArray', '$firebaseObject', '$location', 'CorrectDate', 'AlertMessage', function( $scope, $rootScope, $routeParams, $filter, FIREBASE_URL, $firebaseArray, $firebaseObject, $location, CorrectDate, AlertMessage ) {
 
 
 	/* DEFINE VARIABLES */
@@ -10,6 +10,8 @@ app.controller('SingleTaskCtrl', ['$scope', '$rootScope', '$routeParams', 'FIREB
 	var taskRef = new Firebase(FIREBASE_URL + '/tasks/' + $rootScope.currentUser + '/' + taskID);
 	var task = $firebaseObject(taskRef);
 	$scope.task = task;
+
+	var alarmName;
 
 
 
@@ -28,6 +30,8 @@ app.controller('SingleTaskCtrl', ['$scope', '$rootScope', '$routeParams', 'FIREB
 
 
 	  	//$scope.task.deadline = ReversedDate(task.deadline);
+
+	  	alarmName = task.title + ' Due:' + $filter('momentDate')(task.deadline);
 
 
 	  	if ( !task.reminder ) {
@@ -107,42 +111,13 @@ app.controller('SingleTaskCtrl', ['$scope', '$rootScope', '$routeParams', 'FIREB
 
 		} else {
 
-			// taskRef.update({
-			// 	title: task.title,
-			// 	deadline: CorrectDate(task.deadline),
-			// 	goal: $scope.goalsList.id,
-			// 	reminder: CorrectDate(task.reminder)
-			// })
+			taskRef.update({
+				title: task.title,
+				deadline: CorrectDate(task.deadline),
+				goal: $scope.goalsList.id,
+			})
 
-
-			/* NOTIFICATION */
-
-			var alarms = [];
-			chrome.storage.sync.get('alarms', function(items) {
-				alarms = items.alarms;
-			});
-			
-
-			var now = new Date();
-			var date = new Date( CorrectDate(task.reminder) ).getTime();
-
-			var timeoutTime = date - now;
-
-			var newAlarm = {
-				type: 'basic', 
-			    title: "This is a notification", 
-			    message: task.title,
-			    iconUrl: "assets/icons/icon48.png",
-			    alarmID: task.$id,
-			    alarmDate: timeoutTime
-			}
-
-			console.log(newAlarm);
-			alarms.push(newAlarm);
-
-			chrome.storage.sync.set({alarms: alarms}, function() {
-
-		    });
+			$scope.hideModal();
 
 
 		}
@@ -184,6 +159,72 @@ app.controller('SingleTaskCtrl', ['$scope', '$rootScope', '$routeParams', 'FIREB
 		$location.path('/tasks');
 
 	}
+
+
+
+
+
+
+
+
+
+
+	/* ALARMS */
+
+
+
+
+	function checkAlarm(callback) {
+	    chrome.alarms.getAll(function(alarms) {
+	       var hasAlarm = alarms.some(function(a) {
+	         return a.name == alarmName;
+
+	       });
+	       if (callback) callback(hasAlarm);
+	    })
+	}
+
+	$scope.addAlarm = function(taskAlarm) {
+
+		var date = new Date( CorrectDate(taskAlarm.deadline) ).getTime();
+
+
+		// SET ALARM
+		var options = {
+			when: date
+			//periodInMinutes: 0.5,
+		}
+	    chrome.alarms.create(alarmName, options);
+	    console.log("alarm created");
+
+
+	    // Add to Database
+	    taskRef.update({
+	    	reminder: CorrectDate(taskAlarm.deadline)
+	    })
+
+	    $scope.hideModal();
+		
+	}
+
+	$scope.removeAlarm = function() {
+		chrome.alarms.clear(alarmName);
+	    console.log("alarm cancelled");
+
+	    // Add to Database
+	    taskRef.update({
+	    	reminder: task.deadline
+	    })
+
+	    $scope.hideModal();
+	}
+
+
+	/* NOTIFICATION */
+
+			
+	  
+
 
 
 

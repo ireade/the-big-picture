@@ -73,7 +73,7 @@ app.controller('TasksCtrl', ['$scope', '$rootScope', 'FIREBASE_URL', '$firebaseA
 				deadline: CorrectDate(task.deadline),
 				goal: $scope.goalsList.id,
 				status: 'active',
-				reminder: task.reminder ? CorrectDate(task.reminder) : CorrectDate(task.deadline),
+				reminder: CorrectDate(task.deadline),
 				date_added: Firebase.ServerValue.TIMESTAMP
 			}
 
