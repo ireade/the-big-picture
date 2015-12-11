@@ -15,6 +15,7 @@
 				<li>
 					<a ng-click="showModal('addTaskModal')"> 
 						<i class="fa fa-plus"></i> 
+						<span class="icon-label">Add Task</span>
 					</a>
 				</li>
 			</ul>
@@ -44,17 +45,17 @@
 	</div>
 
 	<ul class="task-list">
-		<li ng-repeat="task in tasks | orderBy: 'deadline' | filter: { status : 'active' }" class="task-list-item no-style" ng-class="{ taskListItemOverdue: isOverdue(task.deadline) }">
-			<a href="#/tasks/{{task.$id}}">
-			<span class="task__title">{{task.title}}</span><br>
-			<span class="task__deadline">by {{task.deadline | momentDate }}</span>
-			</a>
+		<li ng-repeat="task in tasks | orderBy: 'deadline' | filter: { status : 'active' }" class="task-list-item no-ul" ng-class="{ taskListItemOverdue: isOverdue(task.deadline) }">
 			
-			<br>
+			<span class="task__title">
+				<a href="#/tasks/{{task.$id}}">{{task.title}}</a>
+			</span><br>
 
-			<a href="#/goals/{{task.goal}}">
-				<span class="task__deadline" ng-controller="minGoalsCtrl" ng-init="getGoalTitle(task.goal)">for {{ goalTitle }}</span>
-			</a>
+			<span class="task__deadline">by {{task.deadline | momentDate }}</span><br>
+			
+			<span class="task__deadline" ng-controller="minGoalsCtrl" ng-init="getGoalTitle(task.goal)">
+				for <a href="#/goals/{{task.goal}}">{{ goalTitle }}</a>
+			</span>
 
 			<div class="task__statusbox" ng-click="updateTaskStatus(task)">
 				<i class="fa fa-check"></i>

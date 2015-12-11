@@ -2,7 +2,7 @@ app.controller('SettingsCtrl', ['$scope', '$rootScope', 'FIREBASE_URL', '$fireba
 
 
 
-	console.log( $rootScope.currentUser );
+	$scope.pageClass = 'page-about';
 
 
 

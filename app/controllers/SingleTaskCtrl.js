@@ -1,4 +1,4 @@
-app.controller('SingleTaskCtrl', ['$scope', '$rootScope', '$routeParams', '$filter', 'FIREBASE_URL', '$firebaseArray', '$firebaseObject', '$location', 'CorrectDate', 'AlertMessage', function( $scope, $rootScope, $routeParams, $filter, FIREBASE_URL, $firebaseArray, $firebaseObject, $location, CorrectDate, AlertMessage ) {
+app.controller('SingleTaskCtrl', ['$scope', '$rootScope', '$routeParams', 'FIREBASE_URL', '$firebaseArray', '$firebaseObject', '$location', 'CorrectDate', 'AlertMessage', 'ChromeAlarm', function( $scope, $rootScope, $routeParams, FIREBASE_URL, $firebaseArray, $firebaseObject, $location, CorrectDate, AlertMessage, ChromeAlarm ) {
 
 
 	/* DEFINE VARIABLES */
@@ -27,11 +27,6 @@ app.controller('SingleTaskCtrl', ['$scope', '$rootScope', '$routeParams', '$filt
 	    goal.$loaded().then(function() {
 	    	$scope.goalTitle = goal.title;
 	  	})
-
-
-	  	//$scope.task.deadline = ReversedDate(task.deadline);
-
-	  	alarmName = task.title + ' Due:' + $filter('momentDate')(task.deadline);
 
 
 	  	if ( !task.reminder ) {
@@ -154,10 +149,8 @@ app.controller('SingleTaskCtrl', ['$scope', '$rootScope', '$routeParams', '$filt
 
 
 	$scope.deleteTask = function(task) {
-
 		taskRef.remove();
 		$location.path('/tasks');
-
 	}
 
 
@@ -167,60 +160,25 @@ app.controller('SingleTaskCtrl', ['$scope', '$rootScope', '$routeParams', '$filt
 
 
 
+	/* ***********************
 
+		NOTIFICATION ALARMS
 
-	/* ALARMS */
-
-
-
-
-	function checkAlarm(callback) {
-	    chrome.alarms.getAll(function(alarms) {
-	       var hasAlarm = alarms.some(function(a) {
-	         return a.name == alarmName;
-
-	       });
-	       if (callback) callback(hasAlarm);
-	    })
-	}
+	*********************** */
 
 	$scope.addAlarm = function(taskAlarm) {
-
-		var date = new Date( CorrectDate(taskAlarm.deadline) ).getTime();
-
-
-		// SET ALARM
-		var options = {
-			when: date
-			//periodInMinutes: 0.5,
-		}
-	    chrome.alarms.create(alarmName, options);
-	    console.log("alarm created");
-
-
-	    // Add to Database
-	    taskRef.update({
-	    	reminder: CorrectDate(taskAlarm.deadline)
-	    })
-
+		ChromeAlarm.create(task.$id, task.goal, taskAlarm);
 	    $scope.hideModal();
-		
 	}
 
 	$scope.removeAlarm = function() {
-		chrome.alarms.clear(alarmName);
-	    console.log("alarm cancelled");
 
-	    // Add to Database
-	    taskRef.update({
-	    	reminder: task.deadline
-	    })
-
+		ChromeAlarm.remove(task.$id, task.goal);
 	    $scope.hideModal();
 	}
 
 
-	/* NOTIFICATION */
+
 
 			
 	  

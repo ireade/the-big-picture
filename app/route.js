@@ -13,9 +13,9 @@ app.config(function($routeProvider) {
 		})
 
 
-		.when('/settings', {
+		.when('/about', {
 			controller: 'SettingsCtrl',
-			templateUrl: 'views/settings.html',
+			templateUrl: 'views/about.html',
 			resolve: {
 				currentAuth: function(Authentication) {
 					return Authentication.waitForAuth();

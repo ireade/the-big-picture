@@ -15,24 +15,31 @@
 				<li>
 					<a ng-click="showModal('updateTaskModal')"> 
 						<i class="fa fa-pencil"></i> 
+						<span class="icon-label">Edit Task</span>
 					</a>
 				</li>
 
 				<li>
 					<a ng-click="showModal('updateAlarmModal')"> 
 						<i class="fa fa-bell"></i> 
+						<span class="icon-label">Reminder</span>
 					</a>
 				</li>
 				
 				<li>
 					<a ng-click="showModal('deleteTaskModal')"> 
-						<i class="fa fa-trash"></i> 
+						<i class="fa fa-trash"></i>
+						<span class="icon-label">Delete Task</span>
 					</a>
 				</li>
 
 				<li>
 					<a ng-click="updateTaskStatus(task)"> 
-						<i class="fa fa-check"></i> 
+						<i ng-if="task.status === 'active'" class="fa fa-check"></i>
+						<span ng-if="task.status === 'active'" class="icon-label">Complete</span>
+
+						<i ng-if="task.status === 'complete'" class="fa fa-times"></i>
+						<span ng-if="task.status === 'complete'" class="icon-label">Undo</span> 
 					</a>
 				</li>
 			</ul>
@@ -44,17 +51,17 @@
 
 	<div class="item-complete-box" ng-if="task.status === 'complete'">Task Completed!</div>
 
-	<div class="site-box no-ul">
+	<div class="site-box no-ul single-task">
 
-		<span class="task__title">{{task.title}}</span><br>
+		<h3>{{task.title}}</h3>
 		<span class="task__deadline">by {{task.deadline | momentDate }}</span>
 		
 		<br>
-
-		<a href="#/goals/{{task.goal}}">
-			<span class="task__deadline">for {{ goalTitle }}</span>
-		</a>
-
+		
+		<span class="task__deadline"> 
+			for <a href="#/goals/{{task.goal}}">{{ goalTitle }}</a>
+		</span>
+		
 
 	</div>
 

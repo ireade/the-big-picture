@@ -38,6 +38,7 @@
   <script src="app/services/Authentication.js"></script>
   <script src="app/factories/CorrectDate.js"></script>
   <script src="app/factories/AlertMessage.js"></script>
+  <script src="app/factories/ChromeAlarm.js"></script>
 
   
 </head>
@@ -46,11 +47,13 @@
   <nav class="primary-nav no-ul">
     <div class="container">
       <ul ng-controller="NavCtrl">
-        <li ng-class="{ active: isActive('/goals')}"><a href="#/goals">Goals</a></li>
-        <li ng-class="{ active: isActive('/')}"><a href="#/">Dashboard</a></li>
-        <li ng-class="{ active: isActive('/tasks')}"><a href="#/tasks">Tasks</a></li>
+        <li ng-class="{ active: isActive('/goals')}"><a ng-href="#/goals">Goals</a></li>
+        <li ng-class="{ active: isActive('/')}"><a ng-href="#/">Dashboard</a></li>
+        <li ng-class="{ active: isActive('/tasks')}"><a ng-href="#/tasks">Tasks</a></li>
       </ul>
     </div>
+
+    <a class="help-icon" ng-href="#/about"> <i class="fa fa-question-circle"></i> </a>
   </nav>
 
 

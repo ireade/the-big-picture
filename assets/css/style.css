@@ -118,6 +118,9 @@ em {
   font-weight: 700;
   font-size: 1.6rem; }
 
+.page-about p {
+  font-size: 1.8rem; }
+
 /* -----------------------------
 
         	 Z-Index
@@ -135,20 +138,21 @@ em {
 
 ------------------------- */
 .page-header {
-  margin-bottom: 50px;
+  margin-bottom: 80px;
   background-color: cornflowerblue;
   color: #fff;
   box-shadow: 1px 5px 10px #c8c8c8; }
   .page-header h1 {
     display: block;
-    padding: 30px 0;
+    padding: 30px 10px 50px;
     text-align: center; }
 
 .primary-nav {
   height: 35px;
   line-height: 32px;
   background-color: #fff;
-  text-align: center; }
+  text-align: center;
+  position: relative; }
   .primary-nav li {
     display: inline-block; }
   .primary-nav li.active a, .primary-nav li:hover a {
@@ -158,6 +162,12 @@ em {
     height: 100%;
     width: 100%;
     padding: 0 10px; }
+  .primary-nav .help-icon {
+    position: absolute;
+    top: 0;
+    right: 15px;
+    height: 35px;
+    width: 35px; }
 
 .secondary-nav li {
   display: inline-block;
@@ -176,7 +186,9 @@ em {
   height: 50px;
   position: absolute;
   bottom: -25px;
-  right: 15px; }
+  left: 50%;
+  -webkit-transform: translateX(-50%);
+  transform: translateX(-50%); }
   .floating-nav-buttons li {
     display: inline-block;
     border-radius: 50%;
@@ -185,11 +197,34 @@ em {
     width: 50px;
     line-height: 50px;
     text-align: center;
-    margin-left: 15px; }
+    margin-left: 15px;
+    position: relative; }
     .floating-nav-buttons li i {
       color: #000;
       font-size: 2rem;
       line-height: 50px; }
+  .floating-nav-buttons li:hover .icon-label {
+    bottom: -33px;
+    visibility: visible;
+    opacity: 1;
+    transition: visibility 0.5s, opacity 0.5s, bottom 0.5s; }
+
+.icon-label {
+  position: absolute;
+  left: 50%;
+  -webkit-transform: translateX(-50%);
+  transform: translateX(-50%);
+  color: #000;
+  line-height: 1;
+  display: inline-block;
+  padding: 5px 10px;
+  min-width: 200%;
+  width: auto;
+  background-color: #fff;
+  bottom: -45px;
+  visibility: hidden;
+  opacity: 0;
+  transition: visibility 0.5s, opacity 0.5s, bottom 0.5s; }
 
 .inline-button-right {
   display: inline-block;
@@ -247,7 +282,7 @@ html, body {
 section {
   position: relative; }
 
-.box-shadow, .floating-nav-buttons li, .inline-button-right, .site-box, .item-complete-box, .alert-message, input, textarea, select, option, optgroup, button, legend, fieldset, .btn_mac, .modal, .task-list-item {
+.box-shadow, .floating-nav-buttons li, .icon-label, .inline-button-right, .site-box, .item-complete-box, .alert-message, input, textarea, select, option, optgroup, button, legend, fieldset, .btn_mac, .modal, .task-list-item {
   box-shadow: 1px 1px 2px #c8c8c8; }
 
 .site-box, .item-complete-box, .alert-message {

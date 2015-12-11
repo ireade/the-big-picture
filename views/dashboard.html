@@ -16,23 +16,40 @@
 	</div>
 	
 
-	
-	
+
+
 	<section class="latest-tasks initial-hidden">
-		<!-- <h2>Next Tasks</h2> -->
+		
+		<div class="error-message-container" ng-if="tasks.length === 0">
+			<div class="alert-message alert-message--warning">
+
+				<h2>Welcome!</h2>
+
+				<p><em>The Big Picture</em> is an app where you can keep track of your long term goals, and the minute, achievable tasks you need to complete to fulfill them.</p>
+
+				<p>This is your Dashboard, where you will see up to three upcoming tasks. Use the navigation at the top of the page to view your list of Goals and Tasks.</p>
+
+				<p>Looks like you haven't got any tasks yet. Create a goal and tasks along with it to get started!</p>
+
+				<a ng-href="#/goals">Add a Goal</a><br>
+				<a ng-href="#/tasks">Add a Task</a><br>
+
+			</div>
+		</div>
+	
 
 		<ul class="task-list">
-			<li ng-repeat="task in tasks | orderBy: 'deadline' | limitTo : 3" class="task-list-item no-style" ng-class="{ taskListItemOverdue: isOverdue(task.deadline) }">
-				<a href="#/tasks/{{task.$id}}">
-				<span class="task__title">{{task.title}}</span><br>
-				<span class="task__deadline">by {{task.deadline | momentDate }}</span>
-				</a>
-				
-				<br>
+			<li ng-repeat="task in tasks | orderBy: 'deadline' | limitTo : 3" class="task-list-item no-ul" ng-class="{ taskListItemOverdue: isOverdue(task.deadline) }">
 
-				<a href="#/goals/{{task.goal}}">
-					<span class="task__deadline" ng-controller="minGoalsCtrl" ng-init="getGoalTitle(task.goal)">for {{ goalTitle }}</span>
-				</a>
+				<span class="task__title">
+					<a href="#/tasks/{{task.$id}}">{{task.title}}</a>
+				</span><br>
+
+				<span class="task__deadline">by {{task.deadline | momentDate }}</span><br>
+				
+				<span class="task__deadline" ng-controller="minGoalsCtrl" ng-init="getGoalTitle(task.goal)">
+					for <a href="#/goals/{{task.goal}}">{{ goalTitle }}</a>
+				</span>
 
 				<div class="task__statusbox" ng-click="updateTaskStatus(task)">
 					<i class="fa fa-check"></i>
@@ -41,6 +58,10 @@
 		</ul>
 		
 	</section>
+
+	
+	
+	
 
 	</div>
 </main>

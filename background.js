@@ -5,14 +5,40 @@ chrome.browserAction.onClicked.addListener(function(tab) {
 });
 
 
+
+function getAlarmDetails(alarmName) {
+
+	var taskTitle = alarmName.split("TaskTitle:")[1];
+	taskTitle = taskTitle.split("Due:")[0];
+
+	var taskDue = alarmName.split("Due:")[1];
+	taskDue = taskDue.split("GoalTitle:")[0];
+
+	var goalTitle = alarmName.split("GoalTitle:")[1];
+	goalTitle = goalTitle.split("TaskID:")[0];
+
+	var taskID = alarmName.split("TaskID:")[1];
+
+	var alarmDetails = {
+		taskTitle: taskTitle,
+		taskDue: taskDue,
+		goalTitle: goalTitle,
+		taskID: taskID
+	}
+
+	return alarmDetails;
+
+}
+
+
 chrome.alarms.onAlarm.addListener(function( alarm ) {
+
 	//console.log("Got an alarm!", alarm);
 
-
 	var alarmName = alarm.name;
+	var alarmDetails = getAlarmDetails(alarmName);
 
-	var taskName = alarmName.split(" Due:")[0];
-	var taskDue = alarmName.split(" Due:")[1];
+	var notificationMessage = ' "'+ alarmDetails.taskTitle + '" for "'+ alarmDetails.goalTitle + '" is due ' + alarmDetails.taskDue;
 
 
 	chrome.notifications.create(
@@ -20,8 +46,10 @@ chrome.alarms.onAlarm.addListener(function( alarm ) {
 	    {   
 		    type: 'basic', 
 		    title: "Task Reminder", 
-		    message: '"' + taskName + '" is due ' + taskDue,
-		    iconUrl: "assets/icons/icon48.png"
+		    message: notificationMessage,
+		    iconUrl: "assets/icons/icon48.png",
+		    buttons: [{ title: 'View Task' }],
+		    isClickable: true,
 	    },
 	    function() {}
 	);
@@ -32,42 +60,18 @@ chrome.alarms.onAlarm.addListener(function( alarm ) {
 
 
 
+chrome.notifications.onButtonClicked.addListener(function(alarmName) {
+
+	var alarmDetails = getAlarmDetails(alarmName);
+
+	var taskPage = chrome.extension.getURL('index.html') + '#/tasks/' + alarmDetails.taskID;
+
+	chrome.tabs.create({'url': taskPage}, function(tab) {
+	  // Tab opened.
+	});
+
+});
 
 
 
 
-// var alarms;
-
-// chrome.storage.sync.get('alarms', function(items) {
-// 	alarms = items.alarms;
-
-// 	checkAlarms();
-// });
-
-// function addNotification(alarm) {
-// 	chrome.notifications.create(
-// 	    alarm.alarmID,
-// 	    {   
-// 		    type: 'basic', 
-// 		    title: alarm.title, 
-// 		    message: alarm.message,
-// 		    iconUrl: "assets/icons/icon48.png"
-// 	    },
-// 	    function() {
-// 			console.log("notification created");
-// 		}
-// 	);
-// }
-
-// function callSetTimeOut(alarmObj, time) {
-// 	console.log(time);
-// 	console.log(alarmObj);
-// 	setTimeout( function() { addNotification( alarmObj ) } , time);
-// }
-
-
-// function checkAlarms() {
-// 	for (i = 0; i < alarms.length; i++) {
-// 		callSetTimeOut(alarms[i], alarms[i].alarmDate);
-// 	}
-// }

@@ -11,17 +11,18 @@
 app.filter('momentDate', function() {
   return function(date) {
 
-
-
-    var calendarDate = moment( new Date(date) ).calendar();
-
-    if ( calendarDate.indexOf('Today') > -1 ) {
-      return 'Today';
-    } else if ( calendarDate.indexOf('Tomorrow') > -1 ) {
-      return 'Tomorrow'
-    } else {
-      return moment(date).format('dddd D MMM YYYY');
+    var options = {
+      lastDay : '[Yesterday at] LT',
+      sameDay : '[Today at] LT',
+      nextDay : '[Tomorrow at] LT',
+      lastWeek : '[Last] dddd',
+      nextWeek : '[Next] dddd',
+      sameElse : 'dddd D MMM YYYY'
     }
+
+    var calendarDate = moment( new Date(date) ).calendar(null, options);
+
+    return calendarDate;
 
   }
 });

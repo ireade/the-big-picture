@@ -5,8 +5,6 @@ app.factory('Authentication', function(FIREBASE_URL, $firebaseArray, $firebaseOb
 
 	var userRef = new Firebase(FIREBASE_URL + '/users');
 
-
-
 	function getRandomToken() {
 	    var randomPool = new Uint8Array(32);
 	    crypto.getRandomValues(randomPool);
@@ -20,34 +18,9 @@ app.factory('Authentication', function(FIREBASE_URL, $firebaseArray, $firebaseOb
 
 
 
-	
-
 
 
 	return {
-		registerUser: function(user) {
-
-
-		  	var user_uid = userData.uid;
-		    
-		    userRef.child(user_uid).set({
-	    		uid: user_uid,
-	    		firstname: user.firstname,
-				lastname: user.lastname,
-		    });
-
-
-		},
-
-
-
-		logoutUser: function() {
-
-		},
-
-
-
-
 		waitForAuth: function() {
 			
 
@@ -61,15 +34,17 @@ app.factory('Authentication', function(FIREBASE_URL, $firebaseArray, $firebaseOb
 
 			        chrome.storage.sync.set({userid: userid}, function() {
 			        	$rootScope.currentUser = userid;
+
+			        	userRef.child(userid).set({
+				    		browser: true,
+					    });
+
 			            return true;
 			        });
 			    }
 			});
 
 
-		},
-		requireAuth: function() {
-			//return auth.$requireAuth();
 		}
 
 	}
