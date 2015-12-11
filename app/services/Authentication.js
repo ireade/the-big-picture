@@ -17,13 +17,8 @@ app.factory('Authentication', function(FIREBASE_URL, $firebaseArray, $firebaseOb
 
 
 
-
-
-
 	return {
 		waitForAuth: function() {
-			
-
 			chrome.storage.sync.get('userid', function(items) {
 			    var userid = items.userid;
 			    if (userid) {

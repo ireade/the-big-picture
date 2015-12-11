@@ -1,4 +1,4 @@
-app.controller('TasksCtrl', ['$scope', '$rootScope', 'FIREBASE_URL', '$firebaseArray', '$firebaseObject', '$location', 'CorrectDate', 'AlertMessage', function( $scope, $rootScope,  FIREBASE_URL, $firebaseArray, $firebaseObject, $location, CorrectDate, AlertMessage) {
+app.controller('TasksCtrl', ['$scope', '$rootScope', 'FIREBASE_URL', '$firebaseArray', '$firebaseObject', '$location', 'AlertMessage', function( $scope, $rootScope,  FIREBASE_URL, $firebaseArray, $firebaseObject, $location, AlertMessage) {
 
 
 	/* DEFINE VARIABLES */
@@ -18,7 +18,8 @@ app.controller('TasksCtrl', ['$scope', '$rootScope', 'FIREBASE_URL', '$firebaseA
 	/* GENERAL HELPER FUNCTIONS */
 
 	$(".dateTimePickerBox").DateTimePicker({
-    	isPopup: false
+    	isPopup: false,
+    	dateTimeFormat: "yyyy-MM-dd hh:mm:ss"
     });
 
 	$scope.showModal = function(modalName) {
@@ -70,10 +71,10 @@ app.controller('TasksCtrl', ['$scope', '$rootScope', 'FIREBASE_URL', '$firebaseA
 
 			var newTask = {
 				title: task.title,
-				deadline: CorrectDate(task.deadline),
+				deadline: task.deadline,
 				goal: $scope.goalsList.id,
 				status: 'active',
-				reminder: CorrectDate(task.deadline),
+				reminder: task.deadline,
 				date_added: Firebase.ServerValue.TIMESTAMP
 			}
 

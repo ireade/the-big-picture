@@ -1,4 +1,4 @@
-app.factory('ChromeAlarm', function(FIREBASE_URL, $firebaseArray, $firebaseObject, $rootScope, CorrectDate, $filter) {
+app.factory('ChromeAlarm', function(FIREBASE_URL, $firebaseArray, $firebaseObject, $rootScope, $filter) {
 
 
 
@@ -33,7 +33,7 @@ app.factory('ChromeAlarm', function(FIREBASE_URL, $firebaseArray, $firebaseObjec
 
 			getAlarmName(taskID, goalID, function(alarmName) {
 
-				var date = new Date( CorrectDate(taskAlarm.deadline) ).getTime();
+				var date = new Date( taskAlarm.deadline ).getTime();
 
 
 				// ADD CHROME ALARM
@@ -49,7 +49,7 @@ app.factory('ChromeAlarm', function(FIREBASE_URL, $firebaseArray, $firebaseObjec
 			    // ADD TO DATABASE
 			    var taskRef = new Firebase(FIREBASE_URL + '/tasks/' + $rootScope.currentUser + '/' + taskID);
 				taskRef.update({
-			    	reminder: CorrectDate(taskAlarm.deadline)
+			    	reminder: taskAlarm.deadline
 			    })
 
 			})

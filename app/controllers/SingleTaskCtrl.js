@@ -1,4 +1,4 @@
-app.controller('SingleTaskCtrl', ['$scope', '$rootScope', '$routeParams', 'FIREBASE_URL', '$firebaseArray', '$firebaseObject', '$location', 'CorrectDate', 'AlertMessage', 'ChromeAlarm', function( $scope, $rootScope, $routeParams, FIREBASE_URL, $firebaseArray, $firebaseObject, $location, CorrectDate, AlertMessage, ChromeAlarm ) {
+app.controller('SingleTaskCtrl', ['$scope', '$rootScope', '$routeParams', 'FIREBASE_URL', '$firebaseArray', '$firebaseObject', '$location', 'AlertMessage', 'ChromeAlarm', function( $scope, $rootScope, $routeParams, FIREBASE_URL, $firebaseArray, $firebaseObject, $location, AlertMessage, ChromeAlarm ) {
 
 
 	/* DEFINE VARIABLES */
@@ -42,7 +42,8 @@ app.controller('SingleTaskCtrl', ['$scope', '$rootScope', '$routeParams', 'FIREB
 	/* GENERAL HELPER FUNCTIONS */
 
 	$(".dateTimePickerBox").DateTimePicker({
-    	isPopup: false
+    	isPopup: false,
+    	dateTimeFormat: "yyyy-MM-dd hh:mm:ss"
     });
 
 	$scope.showModal = function(modalName) {
@@ -108,7 +109,7 @@ app.controller('SingleTaskCtrl', ['$scope', '$rootScope', '$routeParams', 'FIREB
 
 			taskRef.update({
 				title: task.title,
-				deadline: CorrectDate(task.deadline),
+				deadline: task.deadline,
 				goal: $scope.goalsList.id,
 			})
 

@@ -1,4 +1,4 @@
-app.controller('SingleGoalCtrl', ['$scope', '$rootScope', '$routeParams', 'FIREBASE_URL', '$firebaseArray', '$firebaseObject', '$location', 'CorrectDate', 'AlertMessage', function( $scope, $rootScope, $routeParams, FIREBASE_URL, $firebaseArray, $firebaseObject, $location, CorrectDate, AlertMessage ) {
+app.controller('SingleGoalCtrl', ['$scope', '$rootScope', '$routeParams', 'FIREBASE_URL', '$firebaseArray', '$firebaseObject', '$location', 'AlertMessage', function( $scope, $rootScope, $routeParams, FIREBASE_URL, $firebaseArray, $firebaseObject, $location, AlertMessage ) {
 
 
 
@@ -42,7 +42,8 @@ app.controller('SingleGoalCtrl', ['$scope', '$rootScope', '$routeParams', 'FIREB
 	/* GENERAL HELPER FUNCTIONS */
 
 	$(".dateTimePickerBox").DateTimePicker({
-    	isPopup: false
+    	isPopup: false,
+    	dateTimeFormat: "yyyy-MM-dd hh:mm:ss"
     });
 
 	$scope.showModal = function(modalName) {
@@ -83,7 +84,7 @@ app.controller('SingleGoalCtrl', ['$scope', '$rootScope', '$routeParams', 'FIREB
 			goalRef.update({
 				title: goal.title,
 				description: goal.description,
-				deadline: CorrectDate(goal.deadline),
+				deadline: goal.deadline,
 			})
 
 			$scope.hideModal();
@@ -126,8 +127,8 @@ app.controller('SingleGoalCtrl', ['$scope', '$rootScope', '$routeParams', 'FIREB
 
 			var newTask = {
 				title: task.title,
-				deadline: CorrectDate(task.deadline),
-				reminder: CorrectDate(task.deadline),
+				deadline: task.deadline,
+				reminder: task.deadline,
 				goal: goalID,
 				status: 'active',
 				date_added: Firebase.ServerValue.TIMESTAMP

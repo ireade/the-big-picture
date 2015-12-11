@@ -1,4 +1,4 @@
-app.controller('GoalsCtrl', ['$scope', '$rootScope', 'FIREBASE_URL', '$firebaseArray', '$firebaseObject', '$location', 'CorrectDate', 'AlertMessage', function( $scope, $rootScope,  FIREBASE_URL, $firebaseArray, $firebaseObject, $location, CorrectDate, AlertMessage) {
+app.controller('GoalsCtrl', ['$scope', '$rootScope', 'FIREBASE_URL', '$firebaseArray', '$firebaseObject', '$location', 'AlertMessage', function( $scope, $rootScope,  FIREBASE_URL, $firebaseArray, $firebaseObject, $location, AlertMessage) {
 
 
 	/* DEFINE VARIABLES */
@@ -19,7 +19,8 @@ app.controller('GoalsCtrl', ['$scope', '$rootScope', 'FIREBASE_URL', '$firebaseA
 	/* GENERAL HELPER FUNCTIONS */
 
 	$(".dateTimePickerBox").DateTimePicker({
-    	isPopup: false
+    	isPopup: false,
+    	dateTimeFormat: "yyyy-MM-dd hh:mm:ss"
     });
 
 	$scope.showModal = function(modalName) {
@@ -55,7 +56,7 @@ app.controller('GoalsCtrl', ['$scope', '$rootScope', 'FIREBASE_URL', '$firebaseA
 			var newGoal = {
 				title: goal.title,
 				description: goal.description ? goal.description : "",
-				deadline: CorrectDate(goal.deadline),
+				deadline: goal.deadline,
 				status: 'active',
 				date_added: Firebase.ServerValue.TIMESTAMP
 
