@@ -2,3 +2,4 @@ node_modules
 development
 package.json
 gulpfile.js
+app/constant.js

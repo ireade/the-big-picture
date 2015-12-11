@@ -843,6 +843,28 @@ label.radio-button:hover {
   border-left: 5px solid #87d37c;
   color: #87d37c; }
 
+/* Share */
+ul.share-buttons {
+  list-style-type: none; }
+  ul.share-buttons li {
+    display: inline-block;
+    border: 1px solid #323232;
+    margin: 0 5px 10px;
+    vertical-align: top; }
+  ul.share-buttons li.facebook {
+    background-color: #3B5998; }
+  ul.share-buttons li.twitter {
+    background-color: #4099FF; }
+  ul.share-buttons a {
+    display: block;
+    height: 100%;
+    width: 100%;
+    padding: 5px 10px;
+    color: #fff; }
+  @media screen and (max-width: 600px) {
+    ul.share-buttons {
+      text-align: center; } }
+
 /* -----------------------------
 
             General

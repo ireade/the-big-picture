@@ -4,6 +4,8 @@ app.controller('DashboardCtrl', ['$scope', '$rootScope', 'FIREBASE_URL', '$fireb
 
 	/* DEFINE VARIABLES */
 
+	console.log("dashabord");
+
 	$scope.pageClass = 'page-dashboard';
 
 	var tasksRef = new Firebase(FIREBASE_URL + '/tasks/' + $rootScope.currentUser);
@@ -14,6 +16,8 @@ app.controller('DashboardCtrl', ['$scope', '$rootScope', 'FIREBASE_URL', '$fireb
 	tasks.$loaded().then(function() {
 		$('.loading-animation').hide();
 		$('.initial-hidden').fadeIn();
+
+		console.log("tasks loaded");
 	})
 
 

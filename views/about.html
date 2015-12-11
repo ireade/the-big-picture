@@ -2,7 +2,17 @@
 <header class="page-header">
 	<div class="container">
 		<h1>The Big Picture</h1>
-
+		
+		<nav class="floating-nav-buttons">
+			<ul>
+				<li>
+					<a ng-click="showModal('shareModal')"> 
+						<i class="fa fa-share-alt"></i> 
+						<span class="icon-label">Share</span>
+					</a>
+				</li>
+			</ul>
+		</nav>
 	</div>
 </header>
 
@@ -10,9 +20,7 @@
 
 	<section>
 		<h2>About</h2>
-		<p>The Big Picture is an app for keeping track of.</p>
-
-		<p>Share on Twitter</p>
+		<p>The Big Picture is an app for keeping track of your long-term goals, and the small, acheivable tasks you need to complete them.</p>
 	</section>
 	
 	
@@ -29,3 +37,32 @@
 </div>
 
 </main>
+
+
+
+<!-- Add Goal Modal -->
+<div class="modal-container">
+	<section class="modal shareModal">
+
+		<h2>Share This App</h2>
+
+		<ul class="share-buttons no-ul">
+			<li class="twitter">
+				<a href="https://twitter.com/intent/tweet/?text='{{ shareText }}'&url={{ shareURL }}&via=ireaderinokun" target="_blank">
+				<i class="fa fa-twitter"></i> Share on Twitter
+				</a>
+			</li>
+			<li class="facebook">
+				<a href="https://www.facebook.com/sharer/sharer.php?u={{ shareURL }}" target="_blank">
+				<i class="fa fa-facebook"></i> Share on Facebook
+				</a>
+			</li>
+		</ul>
+
+
+
+		<a ng-click="hideModal()">Close</a>
+		
+	</section>
+
+</div>
