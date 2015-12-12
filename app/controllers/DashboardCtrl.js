@@ -14,6 +14,11 @@ app.controller('DashboardCtrl', ['$scope', '$rootScope', 'FIREBASE_URL', '$fireb
 	tasks.$loaded().then(function() {
 		$('.loading-animation').hide();
 		$('.initial-hidden').fadeIn();
+		$scope.tasks = tasks;
+
+		console.log($scope.tasks);
+
+		console.log($scope.tasks.length);
 	})
 
 
