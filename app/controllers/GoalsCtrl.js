@@ -1,6 +1,7 @@
 app.controller('GoalsCtrl', ['$scope', '$rootScope', 'FIREBASE_URL', '$firebaseArray', '$firebaseObject', '$location', 'AlertMessage', function( $scope, $rootScope,  FIREBASE_URL, $firebaseArray, $firebaseObject, $location, AlertMessage) {
 
 
+
 	/* DEFINE VARIABLES */
 
 	$scope.pageClass = 'page-goals';
@@ -64,6 +65,8 @@ app.controller('GoalsCtrl', ['$scope', '$rootScope', 'FIREBASE_URL', '$firebaseA
 
 			goalsRef.push(newGoal);
 			$scope.hideModal();
+
+			AlertMessage.sidePopup('success', 'Goal added!');
 
 		}
 

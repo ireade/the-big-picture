@@ -88,6 +88,7 @@ app.controller('SingleGoalCtrl', ['$scope', '$rootScope', '$routeParams', 'FIREB
 			})
 
 			$scope.hideModal();
+			AlertMessage.sidePopup('success', 'Goal updated!');
 
 		}
 
@@ -99,6 +100,8 @@ app.controller('SingleGoalCtrl', ['$scope', '$rootScope', '$routeParams', 'FIREB
 			goalRef.update({
 				status: 'complete',
 			})
+			AlertMessage.taskCompleteSound();
+			AlertMessage.sidePopup('success', 'Goal completed!');
 		}
 		else if (goal.status === 'complete') {
 			goalRef.update({
@@ -139,6 +142,7 @@ app.controller('SingleGoalCtrl', ['$scope', '$rootScope', '$routeParams', 'FIREB
 			$scope.task = "";
 
 			$scope.hideModal();
+			AlertMessage.sidePopup('success', 'Task added!');
 
 		}
 
@@ -160,6 +164,8 @@ app.controller('SingleGoalCtrl', ['$scope', '$rootScope', '$routeParams', 'FIREB
 				taskRef.update({
 					status: 'complete',
 				})
+				AlertMessage.taskCompleteSound();
+				AlertMessage.sidePopup('success', 'Task completed!');
 
 				$scope.tasksCompleted = ($scope.completedTasksNo === tasks.length) && (tasks.length > 0);
 			}
@@ -201,6 +207,7 @@ app.controller('SingleGoalCtrl', ['$scope', '$rootScope', '$routeParams', 'FIREB
 			if ( i === (tasks.length - 1) ) {
 				goalRef.remove();
 				$location.path('/goals');
+				AlertMessage.sidePopup('success', 'Goal deleted');
 			}
 		}
 

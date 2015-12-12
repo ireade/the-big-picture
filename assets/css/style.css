@@ -282,10 +282,10 @@ html, body {
 section {
   position: relative; }
 
-.box-shadow, .floating-nav-buttons li, .icon-label, .inline-button-right, .site-box, .item-complete-box, .alert-message, input, textarea, select, option, optgroup, button, legend, fieldset, .btn_mac, .modal, .task-list-item {
+.box-shadow, .floating-nav-buttons li, .icon-label, .inline-button-right, .site-box, .item-complete-box, .alert-message, .popup-message, input, textarea, select, option, optgroup, button, legend, fieldset, .btn_mac, .modal, .task-list-item {
   box-shadow: 1px 1px 2px #c8c8c8; }
 
-.site-box, .item-complete-box, .alert-message {
+.site-box, .item-complete-box, .alert-message, .popup-message {
   background-color: #fff;
   padding: 20px;
   border: 0;
@@ -915,17 +915,35 @@ ul.share-buttons {
 
 .alert-message {
   padding: 10px;
-  max-width: 400px;
   margin: 0 auto; }
 
-.alert-message--success {
+.alert-message:not(.alert-message-fw) {
+  max-width: 400px; }
+
+.popup-message--success, .alert-message--success {
   border-left: 3px solid #87d37c; }
 
-.alert-message--warning {
-  border-left: 3px solid #323232; }
+.popup-message--warning, .alert-message--warning {
+  border-left: 3px solid #9b9b9b; }
 
-.alert-message--danger {
+.popup-message--danger, .alert-message--danger {
   border-left: 3px solid #d24d57; }
+
+/*  Popup */
+.popup-message {
+  padding: 10px;
+  position: fixed;
+  top: 150px; }
+
+.popup-message:empty, .popup-message:not(.open) {
+  opacity: 0;
+  right: -200px;
+  transition: right 1s, opacity 1s; }
+
+.popup-message:not(:empty), .popup-message.open {
+  opacity: 1;
+  right: 0;
+  transition: right 1s, opacity 1s; }
 
 /* -------------------------
 

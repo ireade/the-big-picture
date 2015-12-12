@@ -25,6 +25,9 @@
   <script src="https://cdn.firebase.com/libs/angularfire/1.0.0/angularfire.min.js"></script>
 
 
+  <script src="assets/js/script.js"></script>
+
+
   <!-- App Files -->
   <script src="app/app.js"></script>
   <script src="app/constant.js"></script>
@@ -60,6 +63,14 @@
 
   <!-- View -->
   <div class="page {{ pageClass }}" ng-view></div>
+
+  <div class="popup-message"></div>
+
+  <audio id="notificationSoundComplete">
+    <source src="assets/sounds/complete.mp3"></source>
+  </audio>
+
+
 
 
 </body>

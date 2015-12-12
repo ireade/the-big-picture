@@ -1,4 +1,4 @@
-app.controller('DashboardCtrl', ['$scope', '$rootScope', 'FIREBASE_URL', '$firebaseArray', '$firebaseObject', '$location', function( $scope, $rootScope,  FIREBASE_URL, $firebaseArray, $firebaseObject, $location ) {
+app.controller('DashboardCtrl', ['$scope', '$rootScope', 'FIREBASE_URL', '$firebaseArray', '$firebaseObject', '$location', 'AlertMessage', function( $scope, $rootScope,  FIREBASE_URL, $firebaseArray, $firebaseObject, $location, AlertMessage) {
 
 
 
@@ -93,6 +93,8 @@ app.controller('DashboardCtrl', ['$scope', '$rootScope', 'FIREBASE_URL', '$fireb
 				taskRef.update({
 					status: 'complete',
 				})
+				AlertMessage.taskCompleteSound();
+				AlertMessage.sidePopup('success', 'Task completed!');
 			}
 			else if (task.status === 'complete') {
 				taskRef.update({

@@ -81,6 +81,7 @@ app.controller('TasksCtrl', ['$scope', '$rootScope', 'FIREBASE_URL', '$firebaseA
 			tasksRef.push(newTask);
 
 			$scope.hideModal();
+			AlertMessage.sidePopup('success', 'Task added!');
 
 		}
 
@@ -101,6 +102,8 @@ app.controller('TasksCtrl', ['$scope', '$rootScope', 'FIREBASE_URL', '$firebaseA
 				taskRef.update({
 					status: 'complete',
 				})
+				AlertMessage.taskCompleteSound();
+				AlertMessage.sidePopup('success', 'Task completed!');
 			}
 			else if (task.status === 'complete') {
 				taskRef.update({

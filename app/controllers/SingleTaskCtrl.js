@@ -1,4 +1,4 @@
-app.controller('SingleTaskCtrl', ['$scope', '$rootScope', '$routeParams', 'FIREBASE_URL', '$firebaseArray', '$firebaseObject', '$location', 'AlertMessage', 'ChromeAlarm', function( $scope, $rootScope, $routeParams, FIREBASE_URL, $firebaseArray, $firebaseObject, $location, AlertMessage, ChromeAlarm ) {
+app.controller('SingleTaskCtrl', ['$scope', '$rootScope', '$routeParams', 'FIREBASE_URL', '$firebaseArray', '$firebaseObject', '$location', 'AlertMessage', 'ChromeAlarm', '$filter', function( $scope, $rootScope, $routeParams, FIREBASE_URL, $firebaseArray, $firebaseObject, $location, AlertMessage, ChromeAlarm, $filter) {
 
 
 	/* DEFINE VARIABLES */
@@ -114,6 +114,7 @@ app.controller('SingleTaskCtrl', ['$scope', '$rootScope', '$routeParams', 'FIREB
 			})
 
 			$scope.hideModal();
+			AlertMessage.sidePopup('success', 'Task updated!');
 
 
 		}
@@ -131,14 +132,21 @@ app.controller('SingleTaskCtrl', ['$scope', '$rootScope', '$routeParams', 'FIREB
 			taskRef.update({
 				status: 'complete',
 			})
+
+			AlertMessage.taskCompleteSound();
+			AlertMessage.sidePopup('success', 'Task completed!');
 		}
 		else if (task.status === 'complete') {
 			taskRef.update({
 				status: 'active',
 			})
 		}
+
+
 		
 	}
+
+
 
 
 
@@ -152,6 +160,7 @@ app.controller('SingleTaskCtrl', ['$scope', '$rootScope', '$routeParams', 'FIREB
 	$scope.deleteTask = function(task) {
 		taskRef.remove();
 		$location.path('/tasks');
+		AlertMessage.sidePopup('success', 'Task deleted');
 	}
 
 
@@ -168,14 +177,17 @@ app.controller('SingleTaskCtrl', ['$scope', '$rootScope', '$routeParams', 'FIREB
 	*********************** */
 
 	$scope.addAlarm = function(taskAlarm) {
+		var filteredAlarmDate = $filter('momentDate')(taskAlarm.deadline)
 		ChromeAlarm.create(task.$id, task.goal, taskAlarm);
 	    $scope.hideModal();
+	    AlertMessage.sidePopup('success', 'Alarm set for '+ filteredAlarmDate);
 	}
 
 	$scope.removeAlarm = function() {
 
 		ChromeAlarm.remove(task.$id, task.goal);
 	    $scope.hideModal();
+	    AlertMessage.sidePopup('success', 'Alarm removed');
 	}
 
 
