@@ -43,8 +43,6 @@ app.factory('ChromeAlarm', function(FIREBASE_URL, $firebaseArray, $firebaseObjec
 				}
 			    chrome.alarms.create(alarmName, options);
 
-			    console.log("alarm created");
-
 
 			    // ADD TO DATABASE
 			    var taskRef = new Firebase(FIREBASE_URL + '/tasks/' + $rootScope.currentUser + '/' + taskID);
@@ -62,8 +60,6 @@ app.factory('ChromeAlarm', function(FIREBASE_URL, $firebaseArray, $firebaseObjec
 
 				// REMOVE CHROME ALARM
 				chrome.alarms.clear(alarmName);
-
-			    console.log("alarm cancelled");
 
 
 			    // REMOVE FROM DATABASE

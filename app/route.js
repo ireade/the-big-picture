@@ -12,7 +12,6 @@ app.config(function($routeProvider) {
 			}
 		})
 
-
 		.when('/about', {
 			controller: 'SettingsCtrl',
 			templateUrl: 'views/about.html',
@@ -69,11 +68,9 @@ app.config(function($routeProvider) {
 
 
 
-
 		.otherwise({
 			redirectTo: '/'
 		});
-
 
 
 });

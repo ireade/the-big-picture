@@ -4,10 +4,6 @@
 
 **/
 
-
-
-// Gets the calendar date
-// Or regular format date if not Today or Tomorrow
 app.filter('momentDate', function() {
   return function(date) {
 
@@ -26,12 +22,3 @@ app.filter('momentDate', function() {
 
   }
 });
-
-app.filter('capitalize', function() {
-  return function(string) {
-    return string.charAt(0).toUpperCase() + string.slice(1);
-  }
-});
-
-
-

@@ -14,11 +14,6 @@ app.controller('DashboardCtrl', ['$scope', '$rootScope', 'FIREBASE_URL', '$fireb
 	tasks.$loaded().then(function() {
 		$('.loading-animation').hide();
 		$('.initial-hidden').fadeIn();
-		$scope.tasks = tasks;
-
-		console.log($scope.tasks);
-
-		console.log($scope.tasks.length);
 	})
 
 
@@ -52,10 +47,6 @@ app.controller('DashboardCtrl', ['$scope', '$rootScope', 'FIREBASE_URL', '$fireb
 			author: "Stephen King"
 		},
 		{
-			quote: "The society based on production is only productive, not creative",
-			author: "Albert Camus"
-		},
-		{
 			quote: "The way to get started is to quit talking and begin doing",
 			author: "Walt Disney"
 		},
@@ -70,16 +61,39 @@ app.controller('DashboardCtrl', ['$scope', '$rootScope', 'FIREBASE_URL', '$fireb
 		{
 			quote: "If you’re going through hell, keep going",
 			author: "Winston Churchill"
+		},
+		{
+			quote: "Either write something worth reading or do something worth writing",
+			author: "Benjamin Franklin"
+		},
+		{
+			quote: "Action is the foundational key to all success",
+			author: "Pablo Picasso"
+		},
+		{
+			quote: "If you want to make an easy job seem mighty hard, just keep putting off doing it",
+			author: "Olin Miller"
+		},
+		{
+			quote: "A year from now you may wish you had started today",
+			author: "Karen Lamb"
+		},
+		{
+			quote: "You don’t have to see the whole staircase, just take the first step",
+			author: "Martin Luther King, Jr"
+		},
+		{
+			quote: "Great acts are made up of small deeds",
+			author: "Lao Tzu"
+		},
+		{
+			quote: "Don’t wait. The time will never be just right",
+			author: "Napoleon Hill"
 		}
 	];
 
-
-	var ceiling = quotes.length - 1;
-	var randomNumber = Math.floor(Math.random() * (ceiling + 1));
-
+	var randomNumber = Math.floor( Math.random() * quotes.length );
 	$scope.quote = quotes[randomNumber];
-
-
 
 
 
@@ -94,18 +108,13 @@ app.controller('DashboardCtrl', ['$scope', '$rootScope', 'FIREBASE_URL', '$fireb
 
 		task.$loaded().then(function() {
 
-			if (task.status === 'active') {
-				taskRef.update({
-					status: 'complete',
-				})
-				AlertMessage.taskCompleteSound();
-				AlertMessage.sidePopup('success', 'Task completed!');
-			}
-			else if (task.status === 'complete') {
-				taskRef.update({
-					status: 'active',
-				})
-			}
+			// 	Only showing active tasks, so only action possible
+			// is to mark as complete
+			taskRef.update({
+				status: 'complete',
+			})
+			AlertMessage.taskCompleteSound();
+			AlertMessage.sidePopup('success', 'Task completed!');
 
 		})
 		

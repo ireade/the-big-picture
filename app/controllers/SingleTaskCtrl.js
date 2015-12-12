@@ -177,31 +177,22 @@ app.controller('SingleTaskCtrl', ['$scope', '$rootScope', '$routeParams', 'FIREB
 	*********************** */
 
 	$scope.addAlarm = function(taskAlarm) {
-		var filteredAlarmDate = $filter('momentDate')(taskAlarm.deadline)
 		ChromeAlarm.create(task.$id, task.goal, taskAlarm);
 	    $scope.hideModal();
+
+	    var filteredAlarmDate = $filter('momentDate')(taskAlarm.deadline)
 	    AlertMessage.sidePopup('success', 'Alarm set for '+ filteredAlarmDate);
 	}
 
 	$scope.removeAlarm = function() {
-
 		ChromeAlarm.remove(task.$id, task.goal);
 	    $scope.hideModal();
 	    AlertMessage.sidePopup('success', 'Alarm removed');
 	}
 
 
-
-
 			
-	  
-
-
-
-
-
-
-
+	 
 
 
 }]);

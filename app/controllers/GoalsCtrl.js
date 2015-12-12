@@ -45,6 +45,12 @@ app.controller('GoalsCtrl', ['$scope', '$rootScope', 'FIREBASE_URL', '$firebaseA
 
 	
 
+	/* ***********************
+
+		ADD GOAL
+
+	*********************** */
+
 
 	$scope.addGoal = function(goal) {
 
@@ -60,7 +66,6 @@ app.controller('GoalsCtrl', ['$scope', '$rootScope', 'FIREBASE_URL', '$firebaseA
 				deadline: goal.deadline,
 				status: 'active',
 				date_added: Firebase.ServerValue.TIMESTAMP
-
 			}
 
 			goalsRef.push(newGoal);
@@ -70,21 +75,8 @@ app.controller('GoalsCtrl', ['$scope', '$rootScope', 'FIREBASE_URL', '$firebaseA
 
 		}
 
-		
-
 	}
 
-
-	$scope.goalsFilter = {
-		status: $scope.goalsFilterStatus
-	}
-
-	$scope.goalsFilterStatus = "active";
-
-	$('input[name="goalsFilterStatus"]').on('change', function() {
-		$scope.goalsFilter.status = $scope.goalsFilterStatus;
-		console.log($scope.goalsFilter);
-	})
 
 
 

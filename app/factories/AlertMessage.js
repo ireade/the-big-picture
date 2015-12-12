@@ -8,8 +8,6 @@ app.factory('AlertMessage', function() {
 			var type = "danger";
 			var message = "There is an error with your form.<br> Please try again.";
 
-
-
 			$('form[name="'+formName+'"] .error-message-container').html('<div class="alert-message alert-message--'+type+'"><p>'+message+'</p><a href="/#" class="dismiss-alert">Dismiss</a></div>');
 		    
 			// Dismiss Alert
@@ -38,7 +36,6 @@ app.factory('AlertMessage', function() {
 				$('.popup-message').html('');
 
 			 }, 2000);
-
 
 		}
 

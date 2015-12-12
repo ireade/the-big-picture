@@ -44,7 +44,11 @@ app.controller('TasksCtrl', ['$scope', '$rootScope', 'FIREBASE_URL', '$firebaseA
 
 
 
-	/* CREATE TASK */
+	/* ***********************
+
+		ADD TASK
+
+	*********************** */
 
 	// Dropdown Menu of Goals
 	var goalsRef = new Firebase(FIREBASE_URL + '/goals/' + $rootScope.currentUser);
@@ -85,10 +89,14 @@ app.controller('TasksCtrl', ['$scope', '$rootScope', 'FIREBASE_URL', '$firebaseA
 
 		}
 
-		
-
 	}
 
+
+	/* ***********************
+
+		UPDATE TASK
+
+	*********************** */
 
 
 	$scope.updateTaskStatus = function(task) {
